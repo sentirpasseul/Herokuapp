@@ -6,3 +6,6 @@ class MainPage(BasePage):
         super().__init__(browser)
         self.name = "Main page"
 
+
+
+
