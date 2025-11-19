@@ -1,9 +1,10 @@
-from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver, WebDriverException
+from selenium.webdriver.remote.switch_to import Alert
 from utils.logs.logger import Logger
 
 class Browser:
     DEFAULT_TIMEOUT = 10
+    PAGE_LOAD_TIMEOUT = 20
 
 
     def __init__(self, driver: WebDriver):
@@ -35,6 +36,27 @@ class Browser:
         except WebDriverException as err:
             Logger.error(f"{self}: {err}")
             raise
+
+    def switch_to_alert(self):
+        alert = Alert(self._driver)
+        Logger.info(f"Switch to alert: {alert}")
+        return alert
+
+    def get_alert_text(self):
+        alert = self.switch_to_alert()
+        Logger.info(f"Get alert text: {alert.text}")
+        return alert.text
+
+    def confirm_alert(self):
+        alert = self.switch_to_alert()
+        Logger.info(f"Confirm alert: {alert}")
+        alert.accept()
+
+    def switch_to_iframe(self, frame):
+        Logger.info(f"Switch to frame: {frame}")
+        self._driver.switch_to.frame(frame)
+
+
 
 
 

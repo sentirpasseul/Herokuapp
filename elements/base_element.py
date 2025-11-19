@@ -58,3 +58,13 @@ class BaseElement:
     def click(self):
         self.wait_for(expected_condition=expected_conditions.element_to_be_clickable).click()
 
+    def get_text(self):
+        return self.wait_for(expected_condition=expected_conditions.visibility_of_element_located).text
+
+    def get_attribute(self, name: str):
+        return self.wait_for(expected_condition=expected_conditions.presence_of_element_located).get_attribute(name)
+
+    def is_enabled(self):
+        return self.wait_for(expected_condition=expected_conditions.visibility_of_element_located).is_enabled()
+
+
