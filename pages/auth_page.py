@@ -18,9 +18,10 @@ class AuthPage(BasePage):
         except TimeoutException as err:
             Logger.error(f"{err}: cannot get alert {self}")
 
-    def auth(self, login: str, password: str):
+    def auth(self, user: str, password: str):
         try:
             Logger.info(f"{self}: process of authorization")
-
+            self.browser.get(f"https://{user}:{password}@the-internet.herokuapp.com/basic_auth")
+            self.browser.confirm_alert()
         except TimeoutException as err:
             Logger.error(f"{err}: cannot authorize")
