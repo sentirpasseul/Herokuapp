@@ -6,7 +6,7 @@ class AuthData(StrEnum):
     USER = "admin"
     PASSWORD = "admin"
 
-class TestAuthPage:
+class TestAuth:
 
     def test_auth(self, browser):
         auth_page = AuthPage(browser)

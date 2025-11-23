@@ -11,6 +11,7 @@ class Browser:
         self._driver = driver
 
         self.main_handle = None
+        self.alert = None
 
     @property
     def driver(self):
@@ -39,26 +40,29 @@ class Browser:
 
     def switch_to_alert(self):
         try:
-            alert = self._driver.switch_to.alert
-            Logger.info(f"Switch to alert: {alert}")
-            return alert
+            self.alert = self._driver.switch_to.alert
+            Logger.info(f"Switch to alert: {self.alert}")
+            return self.alert
         except NoAlertPresentException as err:
             Logger.error(f"Failed to switch to alert: {err}")
 
 
     def get_alert_text(self):
-        alert = self.switch_to_alert()
-        Logger.info(f"Get alert text: {alert.text}")
-        return alert.text
+        Logger.info(f"Get alert text: {self.alert.text}")
+        return self.alert.text
 
     def confirm_alert(self):
-        alert = self.switch_to_alert()
-        Logger.info(f"Confirm alert: {alert}")
-        alert.accept()
+        Logger.info(f"Confirm alert: {self.alert}")
+        self.alert.accept()
 
     def switch_to_iframe(self, frame):
         Logger.info(f"Switch to frame: {frame}")
         self._driver.switch_to.frame(frame)
+
+    def send_keys(self, value: str):
+        Logger.info(f"Send {value} successful")
+        self._driver.switch_to.alert.send_keys(value)
+
 
 
 

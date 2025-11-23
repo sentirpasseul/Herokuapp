@@ -4,15 +4,13 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
 class AuthPage(BasePage):
-    AUTH_PAGE_LINK = "http://the-internet.herokuapp.com/basic_auth"
 
     def __init__(self, browser):
         super().__init__(browser)
         self.alert = None
         self.alert_text = str
         self.browser = browser
-        self.success_message = self.element(locator='//p[contains(text(), "Congratulations! You must have the proper credentials.")]',
-                                                   browser=self.browser)
+
         self.unique_element = self.element(locator="//*[contains(text(), 'Basic Auth')]",
                                            browser=self.browser)
 
@@ -27,7 +25,10 @@ class AuthPage(BasePage):
 
     def auth_success(self):
         try:
-            self.success_message.wait_for_visible()
+            success_message = self.element(
+                locator='//p[contains(text(), "Congratulations! You must have the proper credentials.")]',
+                browser=self.browser)
+            success_message.wait_for_visible()
             Logger.info(f"Auth successful")
             return True
         except TimeoutException as err:

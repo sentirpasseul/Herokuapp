@@ -30,20 +30,20 @@ class BaseElement:
 
     def wait_for(self, expected_condition) -> WebElement:
         try:
-            Logger.info(f"{self} wait for {expected_condition.__name__}")
+            Logger.info(f"{self.description} wait for {expected_condition.__name__}")
             element = self._wait.until(method=expected_condition(self.locator))
             return element
         except TimeoutException as err:
-            Logger.error(f"{self}: {err}")
+            Logger.error(f"{self.description}: {err}")
             raise
 
     def wait_for_not(self, expected_condition) -> WebElement:
         try:
-            Logger.info(f"{self} wait for not {expected_condition.__name__}")
+            Logger.info(f"{self.description} wait for not {expected_condition.__name__}")
             element = self._wait.until_not(method=expected_condition(self.locator))
             return element
         except TimeoutException as err:
-            Logger.error(f"{self}: {err}")
+            Logger.error(f"{self.description}: {err}")
             raise
 
     def wait_for_presence(self):
