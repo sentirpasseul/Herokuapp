@@ -11,12 +11,14 @@ class BasePage:
         self.browser = browser
         self.page_name = self.__class__.__name__
         self.unique_element = None
-        self.base_element = BaseElement
+        self.element = BaseElement
 
-    def wait_for_open(self) -> None:
+    def wait_for_open(self):
         try:
             Logger.info(f"Open page {self.page_name}")
             self.unique_element.wait_for_presence()
+            return True
         except TimeoutException as err:
             Logger.error(f"Cannot open {self.page_name}: {err}")
+            return False
 

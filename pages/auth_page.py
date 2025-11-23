@@ -1,7 +1,6 @@
 from pages.base_page import BasePage
 from utils.logs.logger import Logger
 from selenium.common.exceptions import TimeoutException
-from elements.base_element import BaseElement
 from selenium.webdriver.common.by import By
 
 class AuthPage(BasePage):
@@ -12,8 +11,10 @@ class AuthPage(BasePage):
         self.alert = None
         self.alert_text = str
         self.browser = browser
-        self.success_message = BaseElement(locator='//div[contains(@class, "example")]//p[contains(text(), "Congratulations")]',
+        self.success_message = self.element(locator='//p[contains(text(), "Congratulations! You must have the proper credentials.")]',
                                                    browser=self.browser)
+        self.unique_element = self.element(locator="//*[contains(text(), 'Basic Auth')]",
+                                           browser=self.browser)
 
     def auth(self, user: str, password: str):
         try:
@@ -32,3 +33,4 @@ class AuthPage(BasePage):
         except TimeoutException as err:
             Logger.error(f"Failed auth: {err}")
             return False
+
