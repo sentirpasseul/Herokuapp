@@ -1,6 +1,6 @@
 from selenium.webdriver.remote.webdriver import WebDriver, WebDriverException
-from selenium.webdriver.remote.switch_to import Alert
 from utils.logs.logger import Logger
+from selenium.common.exceptions import NoAlertPresentException
 
 class Browser:
     DEFAULT_TIMEOUT = 10
@@ -38,9 +38,13 @@ class Browser:
             raise
 
     def switch_to_alert(self):
-        alert = Alert(self._driver)
-        Logger.info(f"Switch to alert: {alert}")
-        return alert
+        try:
+            alert = self._driver.switch_to.alert
+            Logger.info(f"Switch to alert: {alert}")
+            return alert
+        except NoAlertPresentException as err:
+            Logger.error(f"Failed to switch to alert: {err}")
+
 
     def get_alert_text(self):
         alert = self.switch_to_alert()

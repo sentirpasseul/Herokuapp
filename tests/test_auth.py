@@ -9,7 +9,7 @@ class AuthData(StrEnum):
 class TestAuthPage:
 
     def test_auth(self, browser):
-        auth_page = AuthPage()
-        assert auth_page.get_alert()
+        auth_page = AuthPage(browser)
         assert auth_page.auth(user=AuthData.USER, password=AuthData.PASSWORD)
+        assert auth_page.auth_success()
 
