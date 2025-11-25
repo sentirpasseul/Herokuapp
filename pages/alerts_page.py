@@ -6,11 +6,11 @@ from utils.logs.logger import Logger
 from utils.random.random_factory import RandomFactory
 
 
-class AlertsData(StrEnum):
+class TestAlertsData(StrEnum):
     ALERT_PAGE_LINK = "https://the-internet.herokuapp.com/javascript_alerts"
 
     ALERT_TEXT = "I am a JS Alert"
-    RESULT_ALERT_TEXT = "You successfully clicked an alert"
+    ALERT_RESULT_TEXT = "You successfully clicked an alert"
 
     CONFIRM_TEXT = "I am a JS Confirm"
     CONFIRM_RESULT_TEXT = "You clicked: Ok"
@@ -31,7 +31,7 @@ class AlertsPage(BasePage):
 
     def open(self):
         try:
-            self.browser.get(AlertsData.ALERT_PAGE_LINK)
+            self.browser.get(TestAlertsData.ALERT_PAGE_LINK)
             self.wait_for_open()
             return True
         except Exception:
@@ -75,10 +75,10 @@ class AlertsPage(BasePage):
         try:
             self.click_js_alert_button()
             self.browser.switch_to_alert()
-            if self.check_alert_text(AlertsData.ALERT_TEXT):
+            if self.check_alert_text(TestAlertsData.ALERT_TEXT):
                 self.browser.confirm_alert()
-                if self.check_result_text(AlertsData.RESULT_ALERT_TEXT):
-                    Logger.info(f"Check JavaScript alert successful: '{self.get_result_element_text()}' == '{AlertsData.RESULT_ALERT_TEXT}'")
+                if self.check_result_text(TestAlertsData.ALERT_RESULT_TEXT):
+                    Logger.info(f"Check JavaScript alert successful: '{self.get_result_element_text()}' == '{TestAlertsData.ALERT_RESULT_TEXT}'")
                     return True
         except Exception as err:
             Logger.error(f"Check JavaScript alert failed: {err}")
@@ -88,10 +88,10 @@ class AlertsPage(BasePage):
         try:
             self.click_js_confirm_button()
             self.browser.switch_to_alert()
-            if self.check_alert_text(AlertsData.CONFIRM_TEXT):
+            if self.check_alert_text(TestAlertsData.CONFIRM_TEXT):
                 self.browser.confirm_alert()
-                if self.check_result_text(AlertsData.CONFIRM_RESULT_TEXT):
-                    Logger.info(f"Check JavaScript confirm successful: '{self.get_result_element_text()}' == '{AlertsData.CONFIRM_RESULT_TEXT}'")
+                if self.check_result_text(TestAlertsData.CONFIRM_RESULT_TEXT):
+                    Logger.info(f"Check JavaScript confirm successful: '{self.get_result_element_text()}' == '{TestAlertsData.CONFIRM_RESULT_TEXT}'")
                     return True
         except Exception as err:
             Logger.error(f"Check JavaScript confirm failed: {err}")
@@ -102,27 +102,17 @@ class AlertsPage(BasePage):
             self.click_js_prompt_button()
             self.browser.switch_to_alert()
             random_string = self.get_random_string()
-            if self.check_alert_text(AlertsData.PROMPT_TEXT):
+            if self.check_alert_text(TestAlertsData.PROMPT_TEXT):
                 self.browser.send_keys(random_string)
                 self.browser.confirm_alert()
-                if self.check_result_text(AlertsData.PROMPT_RESULT_TEXT + random_string):
+                if self.check_result_text(TestAlertsData.PROMPT_RESULT_TEXT + random_string):
                     Logger.info(f"Check JavaScript prompt successful: '{self.get_result_element_text()}'"
-                                f" == '{(AlertsData.PROMPT_RESULT_TEXT + random_string)}'")
+                                f" == '{(TestAlertsData.PROMPT_RESULT_TEXT + random_string)}'")
                     return True
         except Exception as err:
             Logger.error(f"Check JavaScript prompt failed: {err}")
             return False
 
-    def check_alert_js_open(self):
-        try:
-            script = "document.querySelector('[onClick=\"jsAlert()\"]').click()"
-            self.browser.execute_script(script)
-            Logger.info(f"Alert open successful")
-        except Exception as err:
-            Logger.error(f"Failed to open alert: {err}")
 
-    def check_alert_using_js(self):
-        script = "document.querySelector('[onClick=\"jsAlert()\"]').click()"
-        self.browser.execute_script(script)
 
 
