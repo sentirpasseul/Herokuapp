@@ -6,6 +6,8 @@ class TestAlerts:
     def test_alerts(self, browser):
         alerts_page = AlertsPage(browser)
         assert alerts_page.open()
-        assert alerts_page.check_js_alert()
-        assert alerts_page.check_js_confirm()
-        assert alerts_page.check_js_prompt()
+        assert alerts_page.check_alert()
+        assert alerts_page.check_confirm()
+        assert alerts_page.check_prompt()
+
+        assert alerts_page.check_alert_using_js()

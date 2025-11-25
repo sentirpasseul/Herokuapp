@@ -52,7 +52,7 @@ class Browser:
         return self.alert.text
 
     def confirm_alert(self):
-        Logger.info(f"Confirm alert: {self.alert}")
+        Logger.info(f"Confirm alert: {self.alert.text}")
         self.alert.accept()
 
     def switch_to_iframe(self, frame):
@@ -63,6 +63,9 @@ class Browser:
         Logger.info(f"Send {value} successful")
         self._driver.switch_to.alert.send_keys(value)
 
+    def execute_script(self, script):
+        Logger.info(f"Execute script")
+        self._driver.execute_script(script)
 
 
 

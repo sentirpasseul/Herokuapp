@@ -52,45 +52,77 @@ class AlertsPage(BasePage):
     def click_js_prompt_button(self) -> None:
         self.element(locator="//button[@onclick = 'jsPrompt()']", browser=self.browser).click()
 
-    def check_js_alert(self):
+    def check_alert_text(self, text: str):
+        correct_text = self.browser.get_alert_text()
+        try:
+            if text == correct_text:
+                Logger.info(f"Alert '{text}' is correct for '{correct_text}'")
+                return True
+        except Exception as err:
+            Logger.error(f"Alert '{text}' is incorrect for '{correct_text}': {err}")
+            return False
+
+    def check_result_text(self, text):
+        correct_text = self.get_result_element_text()
+        try:
+            if text == correct_text:
+                Logger.info(f"Result '{text}' is correct for {correct_text}")
+                return True
+        except Exception as err:
+            Logger.error(f"Result '{text}' is incorrect for '{correct_text}': {err}")
+
+    def check_alert(self):
         try:
             self.click_js_alert_button()
             self.browser.switch_to_alert()
-            if AlertsData.ALERT_TEXT == self.browser.get_alert_text():
+            if self.check_alert_text(AlertsData.ALERT_TEXT):
                 self.browser.confirm_alert()
-                if self.get_result_element_text() == AlertsData.RESULT_ALERT_TEXT:
+                if self.check_result_text(AlertsData.RESULT_ALERT_TEXT):
                     Logger.info(f"Check JavaScript alert successful: '{self.get_result_element_text()}' == '{AlertsData.RESULT_ALERT_TEXT}'")
                     return True
         except Exception as err:
             Logger.error(f"Check JavaScript alert failed: {err}")
             return False
 
-    def check_js_confirm(self):
+    def check_confirm(self):
         try:
             self.click_js_confirm_button()
             self.browser.switch_to_alert()
-            if AlertsData.CONFIRM_TEXT == self.browser.get_alert_text():
+            if self.check_alert_text(AlertsData.CONFIRM_TEXT):
                 self.browser.confirm_alert()
-                if self.get_result_element_text() == AlertsData.CONFIRM_RESULT_TEXT:
+                if self.check_result_text(AlertsData.CONFIRM_RESULT_TEXT):
                     Logger.info(f"Check JavaScript confirm successful: '{self.get_result_element_text()}' == '{AlertsData.CONFIRM_RESULT_TEXT}'")
                     return True
         except Exception as err:
             Logger.error(f"Check JavaScript confirm failed: {err}")
             return False
 
-    def check_js_prompt(self):
+    def check_prompt(self):
         try:
             self.click_js_prompt_button()
             self.browser.switch_to_alert()
             random_string = self.get_random_string()
-            if AlertsData.PROMPT_TEXT == self.browser.get_alert_text():
+            if self.check_alert_text(AlertsData.PROMPT_TEXT):
                 self.browser.send_keys(random_string)
                 self.browser.confirm_alert()
-                if self.get_result_element_text() == (AlertsData.PROMPT_RESULT_TEXT + random_string):
+                if self.check_result_text(AlertsData.PROMPT_RESULT_TEXT + random_string):
                     Logger.info(f"Check JavaScript prompt successful: '{self.get_result_element_text()}'"
                                 f" == '{(AlertsData.PROMPT_RESULT_TEXT + random_string)}'")
                     return True
         except Exception as err:
             Logger.error(f"Check JavaScript prompt failed: {err}")
             return False
+
+    def check_alert_js_open(self):
+        try:
+            script = "document.querySelector('[onClick=\"jsAlert()\"]').click()"
+            self.browser.execute_script(script)
+            Logger.info(f"Alert open successful")
+        except Exception as err:
+            Logger.error(f"Failed to open alert: {err}")
+
+    def check_alert_using_js(self):
+        script = "document.querySelector('[onClick=\"jsAlert()\"]').click()"
+        self.browser.execute_script(script)
+
 
