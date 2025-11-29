@@ -15,8 +15,8 @@ class BasePage:
 
     def wait_for_open(self):
         try:
-            Logger.info(f"Open {self.page_name} successfully")
             self.unique_element.wait_for_presence()
+            Logger.info(f"Open {self.page_name} successfully")
             return True
         except TimeoutException as err:
             Logger.error(f"Failed open {self.page_name}: {err}")
