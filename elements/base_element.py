@@ -76,5 +76,19 @@ class BaseElement:
     def right_click(self):
         self.actions.context_click().perform()
 
+    def send_keys(self, value):
+        self.actions.send_keys(value).perform()
+
+    def slide_horizontal(self, value: float):
+        element = self.wait_for_visible()
+        width = element.size['width']
+        min_val = float(element.get_attribute("min"))
+        max_val = float(element.get_attribute("max"))
+        step = float(element.get_attribute("step"))
+
+        pixels_per_step = width / ((max_val-min_val)/step)
+        steps = int((value-min_val)/step)
+        self.actions.click_and_hold(element).move_by_offset(pixels_per_step * steps, 0).release().perform()
+
 
 

@@ -28,6 +28,7 @@ class ContextMenuPage(BasePage):
         try:
             context_area = self.element (locator=self.CONTEXT_AREA_LOC,
                                          browser=self.browser)
+            context_area.wait_for_visible()
             context_area.move_mouse_to_div()
             context_area.right_click()
             self.browser.switch_to_alert()

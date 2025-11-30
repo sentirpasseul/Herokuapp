@@ -59,7 +59,7 @@ class Browser:
         Logger.info(f"Switch to frame: {frame}")
         self._driver.switch_to.frame(frame)
 
-    def send_keys(self, value: str):
+    def send_keys_alert(self, value: str):
         Logger.info(f"Send {value} successful")
         self._driver.switch_to.alert.send_keys(value)
 

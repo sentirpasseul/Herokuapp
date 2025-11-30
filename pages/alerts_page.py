@@ -103,7 +103,7 @@ class AlertsPage(BasePage):
             self.browser.switch_to_alert()
             random_string = self.get_random_string()
             if self.check_alert_text(TestAlertsData.PROMPT_TEXT):
-                self.browser.send_keys(random_string)
+                self.browser.send_keys_alert(random_string)
                 self.browser.confirm_alert()
                 if self.check_result_text(TestAlertsData.PROMPT_RESULT_TEXT + random_string):
                     Logger.info(f"Check JavaScript prompt successful: '{self.get_result_element_text()}'"

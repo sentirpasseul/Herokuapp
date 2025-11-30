@@ -58,7 +58,7 @@ class AlertsJS(AlertsPage):
             self.check_alert_js_open(ButtonsSelectors.BUTTON_PROMPT_JS)
             self.check_alert_text(TestAlertsData.PROMPT_TEXT)
             random_string = self.get_random_string()
-            self.browser.send_keys(random_string)
+            self.browser.send_keys_alert(random_string)
             self.browser.confirm_alert()
             self.check_result_text_js(TestAlertsData.PROMPT_RESULT_TEXT+random_string)
             Logger.info(f"Check prompt using JavaScript is successful")
