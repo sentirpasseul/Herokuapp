@@ -14,7 +14,6 @@ class Logger:
     __logger.setLevel(LoggerConfig.LOGS_LEVEL)
     __formatter = logging.Formatter(LoggerConfig.FORMAT)
 
-
     __console_handler = logging.StreamHandler()
     __console_handler.setFormatter(__formatter)
     __logger.addHandler(__console_handler)
@@ -27,10 +26,10 @@ class Logger:
     __file_handler.setFormatter(__formatter)
     __logger.addHandler(__file_handler)
 
-
     @staticmethod
     def info(message: str):
-         Logger.__logger.info(msg=message)
+        Logger.__logger.info(msg=message)
+
     @staticmethod
     def debug(message: str):
         Logger.__logger.debug(msg=message)
@@ -46,8 +45,3 @@ class Logger:
     @staticmethod
     def critical(message: str):
         Logger.__logger.critical(msg=message)
-
-
-
-
-

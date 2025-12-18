@@ -7,6 +7,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver import ActionChains
 
+
 class BaseElement:
     DEFAULT_TIMEOUT = 10
 
@@ -39,7 +40,7 @@ class BaseElement:
             Logger.error(f"{self.description}: {err}")
             raise
 
-    def wait_for_not(self, expected_condition) -> WebElement:
+    def wait_for_not(self, expected_condition) -> None:
         try:
             Logger.info(f"{self.description} wait for not {expected_condition.__name__}")
             element = self._wait.until_not(method=expected_condition(self.locator))
@@ -58,13 +59,24 @@ class BaseElement:
         return self.wait_for(expected_condition=expected_conditions.visibility_of_element_located)
 
     def click(self):
-        self.wait_for(expected_condition=expected_conditions.element_to_be_clickable).click()
+        try:
+            self.wait_for(expected_condition=expected_conditions.element_to_be_clickable).click()
+            Logger.info(f"Clicked element: {self}")
+        except TimeoutException as err:
+            Logger.error(f"Failed to click element {self}: {err}")
+            return False
 
     def get_text(self):
-        return self.wait_for(expected_condition=expected_conditions.visibility_of_element_located).text
+        try:
+            text = self.wait_for(expected_condition=expected_conditions.visibility_of_element_located).text
+            Logger.info(f"Get text: {text}")
+            return text
+        except TimeoutException as err:
+            Logger.error(f"Failed to get text: {err}")
+            return False
 
     def get_attribute(self, name: str):
-        return self.wait_for(expected_condition=expected_conditions.presence_of_element_located).get_attribute(name)
+        return self.wait_for_presence().get_attribute(name)
 
     def is_enabled(self):
         return self.wait_for(expected_condition=expected_conditions.visibility_of_element_located).is_enabled()
@@ -75,20 +87,4 @@ class BaseElement:
 
     def right_click(self):
         self.actions.context_click().perform()
-
-    def send_keys(self, value):
-        self.actions.send_keys(value).perform()
-
-    def slide_horizontal(self, value: float):
-        element = self.wait_for_visible()
-        width = element.size['width']
-        min_val = float(element.get_attribute("min"))
-        max_val = float(element.get_attribute("max"))
-        step = float(element.get_attribute("step"))
-
-        pixels_per_step = width / ((max_val-min_val)/step)
-        steps = int((value-min_val)/step)
-        self.actions.click_and_hold(element).move_by_offset(pixels_per_step * steps, 0).release().perform()
-
-
 

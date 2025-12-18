@@ -4,12 +4,10 @@ from pages.alerts_page import AlertsPage, TestAlertsData
 from utils.logs.logger import Logger
 
 
-class ButtonsSelectors(StrEnum):
+class AlertsJS(AlertsPage):
     BUTTON_ALERT_JS = "jsAlert()"
     BUTTON_CONFIRM_JS = "jsConfirm()"
     BUTTON_PROMPT_JS = "jsPrompt()"
-
-class AlertsJS(AlertsPage):
 
     def check_alert_js_open(self, selector: str):
         try:
@@ -28,10 +26,9 @@ class AlertsJS(AlertsPage):
             Logger.error(f"Failed to check '{text}': {err}")
             return False
 
-
     def check_alert_js(self):
         try:
-            self.check_alert_js_open(ButtonsSelectors.BUTTON_ALERT_JS)
+            self.check_alert_js_open(self.BUTTON_ALERT_JS)
             self.check_alert_text(TestAlertsData.ALERT_TEXT)
             self.browser.confirm_alert()
             self.check_result_text_js(TestAlertsData.ALERT_RESULT_TEXT)
@@ -43,7 +40,7 @@ class AlertsJS(AlertsPage):
 
     def check_confirm_js(self):
         try:
-            self.check_alert_js_open(ButtonsSelectors.BUTTON_CONFIRM_JS)
+            self.check_alert_js_open(self.BUTTON_CONFIRM_JS)
             self.check_alert_text(TestAlertsData.CONFIRM_TEXT)
             self.browser.confirm_alert()
             self.check_result_text_js(TestAlertsData.CONFIRM_RESULT_TEXT)
@@ -55,17 +52,14 @@ class AlertsJS(AlertsPage):
 
     def check_prompt_js(self):
         try:
-            self.check_alert_js_open(ButtonsSelectors.BUTTON_PROMPT_JS)
+            self.check_alert_js_open(self.BUTTON_PROMPT_JS)
             self.check_alert_text(TestAlertsData.PROMPT_TEXT)
             random_string = self.get_random_string()
             self.browser.send_keys_alert(random_string)
             self.browser.confirm_alert()
-            self.check_result_text_js(TestAlertsData.PROMPT_RESULT_TEXT+random_string)
+            self.check_result_text_js(TestAlertsData.PROMPT_RESULT_TEXT + random_string)
             Logger.info(f"Check prompt using JavaScript is successful")
             return True
         except Exception as err:
             Logger.error(f"Failed to check prompt using JavaScript: {err}")
             return False
-
-
-

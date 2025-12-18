@@ -3,35 +3,28 @@ from utils.logs.logger import Logger
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
+
 class AuthPage(BasePage):
+    AUTH_PAGE_UNIQUE_LOC = "//*[contains(text(), 'Basic Auth')]"
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.alert = None
-        self.alert_text = str
-        self.browser = browser
+        self.unique_element = self.element(locator=self.AUTH_PAGE_UNIQUE_LOC)
 
-        self.unique_element = self.element(locator="//*[contains(text(), 'Basic Auth')]",
-                                           browser=self.browser)
-
-    def auth(self, user: str, password: str):
+    def auth(self, user: str, password: str) -> None:
         try:
-            Logger.info(f"{self}: process of authorization")
             self.browser.get(f"https://{user}:{password}@the-internet.herokuapp.com/basic_auth")
-            return True
+            Logger.info(f"{self}: process of authorization")
         except TimeoutException as err:
-            Logger.error(f"{err}: cannot authorize")
-            return False
+            Logger.error(f"{err}: cannot authorize on {self.page_name}")
 
-    def auth_success(self):
+    def is_auth_success(self):
         try:
             success_message = self.element(
-                locator='//p[contains(text(), "Congratulations! You must have the proper credentials.")]',
-                browser=self.browser)
+                locator='//p[contains(text(), "Congratulations! You must have the proper credentials.")]')
             success_message.wait_for_visible()
-            Logger.info(f"Auth successful")
+            Logger.info(f"{self.page_name} successful")
             return True
         except TimeoutException as err:
-            Logger.error(f"Failed auth: {err}")
+            Logger.error(f"Failed auth {self.page_name}: {err}")
             return False
-

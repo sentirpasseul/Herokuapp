@@ -4,6 +4,7 @@ import pytest
 
 DEFAULT_LINK = "http://the-internet.herokuapp.com"
 
+
 @pytest.fixture(scope='function')
 def browser():
     driver = BrowserFactory.get_driver()
@@ -11,5 +12,3 @@ def browser():
     browser.get(DEFAULT_LINK)
     yield browser
     browser.quit()
-
-

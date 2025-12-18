@@ -2,10 +2,10 @@ from selenium.webdriver.remote.webdriver import WebDriver, WebDriverException
 from utils.logs.logger import Logger
 from selenium.common.exceptions import NoAlertPresentException
 
+
 class Browser:
     DEFAULT_TIMEOUT = 10
     PAGE_LOAD_TIMEOUT = 20
-
 
     def __init__(self, driver: WebDriver):
         self._driver = driver
@@ -45,11 +45,12 @@ class Browser:
             return self.alert
         except NoAlertPresentException as err:
             Logger.error(f"Failed to switch to alert: {err}")
-
+            return NoAlertPresentException
 
     def get_alert_text(self):
-        Logger.info(f"Get alert text: {self.alert.text}")
-        return self.alert.text
+        text = self.alert.text
+        Logger.info(f"Get alert text: {text}")
+        return text
 
     def confirm_alert(self):
         Logger.info(f"Confirm alert: {self.alert.text}")
@@ -64,12 +65,5 @@ class Browser:
         self._driver.switch_to.alert.send_keys(value)
 
     def execute_script(self, script):
-        Logger.info(f"Execute script")
+        Logger.info(f"Execute script: {script}")
         self._driver.execute_script(script)
-
-
-
-
-
-
-
