@@ -1,7 +1,21 @@
-from elements.base_element import BaseElement
+from selenium.webdriver import ActionChains
 
-class HorizontalSlider(BaseElement):
+from elements.custom_elements.input import Input
+from utils.js.javascript_actions import JavaScriptActions
 
-    def set_value_in_slider(self, value):
+
+class HorizontalSlider(Input):
+
+    def __init__(self, browser, locator, description):
+        super().__init__(browser=browser, locator=locator, description=description)
+        self.actions = ActionChains(browser.driver)
+        self.js_actions = JavaScriptActions(browser)
+
+    def set_value_to_slider(self, value):
         element = self.wait_for_visible()
-        element.send_keys(value)
+        self.js_actions.set_value_to_element(value=value, element=element)
+        self.js_actions.dispatch_event_change(element)
+
+
+
+

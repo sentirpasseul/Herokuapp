@@ -1,7 +1,7 @@
 from pages.base_page import BasePage
 from utils.logs.logger import Logger
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
+from elements.custom_elements.label import Label
 
 
 class AuthPage(BasePage):
@@ -9,7 +9,8 @@ class AuthPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.unique_element = self.element(locator=self.AUTH_PAGE_UNIQUE_LOC)
+        self.unique_element = Label(browser=browser, locator=self.AUTH_PAGE_UNIQUE_LOC,
+                                    description="Basic Auth Page -> Basic Auth label")
 
     def auth(self, user: str, password: str) -> None:
         try:
@@ -20,8 +21,9 @@ class AuthPage(BasePage):
 
     def is_auth_success(self):
         try:
-            success_message = self.element(
-                locator='//p[contains(text(), "Congratulations! You must have the proper credentials.")]')
+            success_message = Label(browser=self.browser,
+                                    locator='//p[contains(text(), "Congratulations! You must have the proper credentials.")]',
+                                    description="Basic Auth Page -> Success auth message label")
             success_message.wait_for_visible()
             Logger.info(f"{self.page_name} successful")
             return True

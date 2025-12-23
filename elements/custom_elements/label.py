@@ -2,5 +2,6 @@ from elements.base_element import BaseElement
 
 class Label(BaseElement):
 
-    def __str__(self):
-        pass
+    @property
+    def text(self):
+        return f"{self.get_text()}"

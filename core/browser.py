@@ -64,6 +64,6 @@ class Browser:
         Logger.info(f"Send {value} successful")
         self._driver.switch_to.alert.send_keys(value)
 
-    def execute_script(self, script):
+    def execute_script(self, script, *args):
         Logger.info(f"Execute script: {script}")
-        self._driver.execute_script(script)
+        self._driver.execute_script(script, *args)

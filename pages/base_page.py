@@ -8,8 +8,14 @@ class BasePage:
 
     def __init__(self, browser: Browser):
         self.browser = browser
-        self.page_name = self.__class__.__name__
+        self.page_name = None
         self.unique_element = None
+
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}[{self.page_name}]"
+
+    def __repr__(self) -> str:
+        return str(self)
 
     def element(self, locator: str | tuple, description: str = None) -> BaseElement:
         return BaseElement(
@@ -19,9 +25,5 @@ class BasePage:
         )
 
     def wait_for_open(self):
-        try:
-            self.unique_element.wait_for_presence()
-            Logger.info(f"Open {self.page_name} successfully")
-        except TimeoutException as err:
-            Logger.error(f"Failed open {self.page_name}: {err}")
-            return TimeoutException
+        Logger.info(f"{self}: wait for open")
+        self.unique_element.wait_for_presence()

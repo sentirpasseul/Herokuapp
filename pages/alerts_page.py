@@ -4,6 +4,7 @@ from pages.base_page import BasePage
 from selenium.common.exceptions import TimeoutException
 from utils.logs.logger import Logger
 from utils.random.random_factory import RandomFactory
+from elements.custom_elements.label import Label
 
 
 class TestAlertsData(StrEnum):
@@ -25,11 +26,11 @@ class AlertsPage(BasePage):
     JS_CONFIRM_BUTTON = "//button[@onclick = 'jsConfirm()']"
     JS_PROMPT_BUTTON = "//button[@onclick = 'jsPrompt()']"
 
-
     def __init__(self, browser):
         super().__init__(browser)
         self.browser = browser
-        self.unique_element = self.element(locator=self.ALERT_PAGE_UNIQUE_LOC)
+        self.unique_element = Label(browser=browser, locator=self.ALERT_PAGE_UNIQUE_LOC,
+                                    description="JavaScript Alerts Page -> JavaScript Alerts label")
         self.random_factory = RandomFactory()
 
     def open(self):

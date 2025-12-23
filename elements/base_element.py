@@ -31,22 +31,29 @@ class BaseElement:
         self._wait = WebDriverWait(self.browser.driver, timeout=self.timeout)
         self.actions = ActionChains(self.browser.driver)
 
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__}[{self.description}]"
+
+    def __repr__(self) -> str:
+        return str(self)
+
+
     def wait_for(self, expected_condition) -> WebElement:
         try:
-            Logger.info(f"{self.description} wait for {expected_condition.__name__}")
+            Logger.info(f"{self} wait for {expected_condition.__name__}")
             element = self._wait.until(method=expected_condition(self.locator))
             return element
         except TimeoutException as err:
-            Logger.error(f"{self.description}: {err}")
+            Logger.error(f"{self}: {err}")
             raise
 
     def wait_for_not(self, expected_condition) -> None:
         try:
-            Logger.info(f"{self.description} wait for not {expected_condition.__name__}")
+            Logger.info(f"{self} wait for not {expected_condition.__name__}")
             element = self._wait.until_not(method=expected_condition(self.locator))
             return element
         except TimeoutException as err:
-            Logger.error(f"{self.description}: {err}")
+            Logger.error(f"{self}: {err}")
             raise
 
     def wait_for_presence(self) -> WebElement:
@@ -82,8 +89,8 @@ class BaseElement:
         return self.wait_for(expected_condition=expected_conditions.visibility_of_element_located).is_enabled()
 
     def move_mouse_to_div(self):
-        element = self.wait_for_visible()
-        self.actions.move_to_element(element)
+        div = self.wait_for_visible()
+        self.actions.move_to_element(div).perform()
 
     def right_click(self):
         self.actions.context_click().perform()

@@ -2,6 +2,8 @@ from pages.base_page import BasePage
 from utils.logs.logger import Logger
 from pages.alerts_page import AlertsPage
 from selenium.common.exceptions import TimeoutException
+from elements.custom_elements.label import Label
+from elements.custom_elements.container import Container
 
 
 class ContextMenuPage(BasePage):
@@ -10,7 +12,8 @@ class ContextMenuPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.unique_element = self.element(locator=self.CONTEXT_MENU_PAGE_UNIQUE_LOC)
+        self.unique_element = Label(browser=browser, locator=self.CONTEXT_MENU_PAGE_UNIQUE_LOC,
+                                    description="Context Menu Page - > Context Menu label")
         self.alerts = AlertsPage(browser)
 
     def open(self):
@@ -22,7 +25,8 @@ class ContextMenuPage(BasePage):
 
     def check_context_menu(self, text):
         try:
-            context_area = self.element(locator=self.CONTEXT_AREA_LOC)
+            context_area = Container(browser=self.browser, locator=self.CONTEXT_AREA_LOC,
+                                     description="Context Menu Page -> Hot Spot Area container")
             context_area.wait_for_visible()
             context_area.move_mouse_to_div()
             context_area.right_click()
