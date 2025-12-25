@@ -18,7 +18,4 @@ class TestHorizontalSlider:
                                                         step=horizontal_slider.get_step_range())
         assert horizontal_slider.open(), "Ошибка при открытии страницы с горизонтальным слайдером \n"
         assert horizontal_slider.check_horizontal_slider(
-            random_value),  "Ошибка при проверке горизонтального слайдера \n"
-
-
-
+            random_value), "Ошибка при проверке горизонтального слайдера \n"

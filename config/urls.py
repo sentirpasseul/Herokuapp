@@ -7,3 +7,4 @@ class URLs(StrEnum):
     ALERTS_PAGE = "https://the-internet.herokuapp.com/javascript_alerts"
     CONTEXT_MENU_PAGE = "http://the-internet.herokuapp.com/context_menu"
     HORIZONTAL_SLIDER_PAGE = "http://the-internet.herokuapp.com/horizontal_slider"
+    HOVERS_PAGE = "http://the-internet.herokuapp.com/hovers"

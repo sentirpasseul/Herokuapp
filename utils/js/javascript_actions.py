@@ -1,6 +1,7 @@
 from core.browser import Browser
 from utils.logs.logger import Logger
 
+
 class JavaScriptActions:
 
     def __init__(self, browser: Browser):
