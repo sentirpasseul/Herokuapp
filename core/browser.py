@@ -1,6 +1,7 @@
 from selenium.webdriver.remote.webdriver import WebDriver, WebDriverException
 from utils.logs.logger import Logger
 from selenium.common.exceptions import NoAlertPresentException
+from elements.base_element import BaseElement
 
 
 class Browser:
@@ -61,9 +62,9 @@ class Browser:
         Logger.info(f"Confirm alert: {self.alert.text}")
         self.alert.accept()
 
-    def switch_to_iframe(self, frame):
+    def switch_to_frame(self, frame: BaseElement):
         Logger.info(f"Switch to frame: {frame}")
-        self._driver.switch_to.frame(frame)
+        self._driver.switch_to.frame(frame.wait_for_presence())
 
     def switch_to_window(self, window):
         Logger.info(f"Switch to window: {window}")
@@ -90,5 +91,3 @@ class Browser:
 
     def get_title_current_page(self):
         return self._driver.title
-
-

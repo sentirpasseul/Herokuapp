@@ -9,3 +9,4 @@ class URLs(StrEnum):
     HORIZONTAL_SLIDER_PAGE = "http://the-internet.herokuapp.com/horizontal_slider"
     HOVERS_PAGE = "http://the-internet.herokuapp.com/hovers"
     WINDOWS_PAGE = "http://the-internet.herokuapp.com/windows"
+    FRAMES_PAGE = "https://demoqa.com/frames"

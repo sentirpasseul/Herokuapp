@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from core.browser import Browser
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webelement import WebElement
 from utils.logs.logger import Logger
@@ -13,7 +12,7 @@ class BaseElement:
     DEFAULT_TIMEOUT = 10
 
     def __init__(self,
-                 browser: Browser,
+                 browser,
                  locator: str | tuple | None = None,
                  description: str = None,
                  timeout: int = DEFAULT_TIMEOUT):
@@ -74,6 +73,9 @@ class BaseElement:
 
     def wait_for_all_visible(self) -> List[WebElement]:
         return self.wait_for_elements(expected_condition=expected_conditions.visibility_of_all_elements_located)
+
+    def wait_for_element_not_visible(self):
+        return self.wait_for_not(expected_condition=expected_conditions.invisibility_of_element_located)
 
     def click(self):
         try:
