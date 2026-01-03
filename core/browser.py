@@ -12,10 +12,15 @@ class Browser:
 
         self.main_handle = None
         self.alert = None
+        self.original_window = self._driver.current_window_handle
 
     @property
     def driver(self):
         return self._driver
+
+    @property
+    def current_url(self):
+        return self._driver.current_url
 
     def get(self, url: str) -> None:
         Logger.info(f"{self} get: {url}")
@@ -60,6 +65,10 @@ class Browser:
         Logger.info(f"Switch to frame: {frame}")
         self._driver.switch_to.frame(frame)
 
+    def switch_to_window(self, window):
+        Logger.info(f"Switch to window: {window}")
+        self._driver.switch_to.window(window)
+
     def send_keys_alert(self, value: str):
         Logger.info(f"Send {value} successful")
         self._driver.switch_to.alert.send_keys(value)
@@ -67,3 +76,19 @@ class Browser:
     def execute_script(self, script, *args):
         Logger.info(f"Execute script: {script}")
         self._driver.execute_script(script, *args)
+
+    def switch_to_new_tab(self):
+        for handle in self._driver.window_handles:
+            if handle != self.original_window:
+                self.switch_to_window(handle)
+
+    def switch_to_original_window(self):
+        self.switch_to_window(self.original_window)
+
+    def go_back(self):
+        self._driver.back()
+
+    def get_title_current_page(self):
+        return self._driver.title
+
+

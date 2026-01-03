@@ -8,3 +8,4 @@ class URLs(StrEnum):
     CONTEXT_MENU_PAGE = "http://the-internet.herokuapp.com/context_menu"
     HORIZONTAL_SLIDER_PAGE = "http://the-internet.herokuapp.com/horizontal_slider"
     HOVERS_PAGE = "http://the-internet.herokuapp.com/hovers"
+    WINDOWS_PAGE = "http://the-internet.herokuapp.com/windows"
