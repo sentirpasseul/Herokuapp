@@ -44,6 +44,9 @@ class Browser:
             Logger.error(f"{self}: {err}")
             raise
 
+    def refresh(self):
+        self._driver.refresh()
+
     def switch_to_alert(self):
         try:
             self.alert = self._driver.switch_to.alert

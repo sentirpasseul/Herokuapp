@@ -7,7 +7,7 @@ from typing import List
 
 class HoversPage(BasePage):
     HOVERS_PAGE_UNIQUE_LOC = "//div[contains(@class, 'example')]//*[contains(text(), 'Hovers')]"
-    USER_CARD = "//div[contains(@class, 'figure')]"
+    USER_CARD_LOC = "//div[contains(@class, 'figure')]"
     USER_CARD_USERNAME = "//*[contains(text(), 'user{user_id}')]"
     USER_CARD_LINK_PROFILE = "//a[contains(@href, '/users/{user_id}')]"
     USER_PROFILE_LINK = "https://the-internet.herokuapp.com/users/{user_id}"
@@ -40,14 +40,14 @@ class HoversPage(BasePage):
 
     def get_user_card(self):
         return Container(browser=self.browser,
-                         locator=self.USER_CARD,
+                         locator=self.USER_CARD_LOC,
                          description="Hovers Page -> User Card container")
 
     def get_user_cards(self) -> List[Container]:
         cards = self.get_user_card().wait_for_all_visible()
         containers = []
         for i, element in enumerate(cards, start=1):
-            indexed_locator = f"({self.USER_CARD})[{i}]"
+            indexed_locator = f"({self.USER_CARD_LOC})[{i}]"
 
             container_obj = Container(
                 browser=self.browser,
