@@ -13,7 +13,8 @@ class FramePage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser=browser)
-        self.unique_element = Label(browser=browser, locator=self.FRAME_PAGE_UNIQUE_LOC,
+        self.unique_element = Label(browser=browser,
+                                    locator=self.FRAME_PAGE_UNIQUE_LOC,
                                     description="Frames Page -> Frames Page Label")
         self.nested_frames_page = NestedFramesPage(browser)
 
@@ -26,11 +27,14 @@ class FramePage(BasePage):
 
     def check_collapse_menu(self):
         try:
-            menu_item = Container(browser=self.browser, locator=self.FRAME_PAGE_MENU_ELEMENT_ITEM,
+            menu_item = Container(browser=self.browser,
+                                  locator=self.FRAME_PAGE_MENU_ELEMENT_ITEM,
                                   description="Frames Page -> Alerts, Frames & Windows menu item list container")
-            menu = Container(browser=self.browser, locator=self.FRAME_PAGE_MENU,
+            menu = Container(browser=self.browser,
+                             locator=self.FRAME_PAGE_MENU,
                              description="Frames Page -> Collapse Menu Alerts, Frames & Windows container")
-            nested_frames_menu_item = Label(browser=self.browser, locator=self.NESTED_FRAMES_MENU_ITEM,
+            nested_frames_menu_item = Label(browser=self.browser,
+                                            locator=self.NESTED_FRAMES_MENU_ITEM,
                                             description="Frames Page -> Nested Frames menu item")
             if menu_item.wait_for_element_not_visible():
                 menu.click()

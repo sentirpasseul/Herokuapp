@@ -15,12 +15,14 @@ class HorizontalSliderPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.unique_element = Label(browser=browser, locator=self.HORIZONTAL_SLIDER_PAGE_UNIQUE_LOC,
+        self.unique_element = Label(browser=browser,
+                                    locator=self.HORIZONTAL_SLIDER_PAGE_UNIQUE_LOC,
                                     description="Horizontal Slider Page -> Label")
-        self.browser = browser
-        self.slider = HorizontalSlider(browser=browser, locator=self.HORIZONTAL_SLIDER_INPUT_LOC,
+        self.slider = HorizontalSlider(browser=browser,
+                                       locator=self.HORIZONTAL_SLIDER_INPUT_LOC,
                                        description="Horizontal Slider Page -> Horizontal Slider input")
-        self.counter = Label(browser=browser, locator=self.HORIZONTAL_SLIDER_COUNT,
+        self.counter = Label(browser=browser,
+                             locator=self.HORIZONTAL_SLIDER_COUNT,
                              description="Horizontal Slider Page -> Counter label")
 
     def open(self):

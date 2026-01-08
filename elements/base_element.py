@@ -31,6 +31,10 @@ class BaseElement:
         self._wait = WebDriverWait(self.browser.driver, timeout=self.timeout)
         self.actions = ActionChains(self.browser.driver)
 
+    @property
+    def element(self):
+        return self.wait_for_presence()
+
     def __str__(self) -> str:
         return f"{self.__class__.__name__}[{self.description}]"
 

@@ -11,3 +11,4 @@ class URLs(StrEnum):
     WINDOWS_PAGE = "http://the-internet.herokuapp.com/windows"
     FRAMES_PAGE = "https://demoqa.com/frames"
     DYNAMIC_CONTENT_PAGE = "http://the-internet.herokuapp.com/dynamic_content"
+    INFINITE_SCROLL_PAGE = "http://the-internet.herokuapp.com/infinite_scroll"

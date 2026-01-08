@@ -9,7 +9,8 @@ class AuthPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.unique_element = Label(browser=browser, locator=self.AUTH_PAGE_UNIQUE_LOC,
+        self.unique_element = Label(browser=browser,
+                                    locator=self.AUTH_PAGE_UNIQUE_LOC,
                                     description="Basic Auth Page -> Basic Auth label")
 
     def auth(self, user: str, password: str) -> None:

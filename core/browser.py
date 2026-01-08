@@ -2,6 +2,7 @@ from selenium.webdriver.remote.webdriver import WebDriver, WebDriverException
 from utils.logs.logger import Logger
 from selenium.common.exceptions import NoAlertPresentException
 from elements.base_element import BaseElement
+from selenium.webdriver import ActionChains
 
 
 class Browser:
@@ -14,6 +15,7 @@ class Browser:
         self.main_handle = None
         self.alert = None
         self.original_window = self._driver.current_window_handle
+        self.actions = ActionChains(driver)
 
     @property
     def driver(self):
@@ -94,3 +96,9 @@ class Browser:
 
     def get_title_current_page(self):
         return self._driver.title
+
+    def scroll_to_element(self, element):
+        self._driver.execute_script(
+            "arguments[0].scrollIntoView({block: 'center'})",
+            element
+        )

@@ -28,8 +28,8 @@ class AlertsPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.browser = browser
-        self.unique_element = Label(browser=browser, locator=self.ALERT_PAGE_UNIQUE_LOC,
+        self.unique_element = Label(browser=browser,
+                                    locator=self.ALERT_PAGE_UNIQUE_LOC,
                                     description="JavaScript Alerts Page -> JavaScript Alerts label")
         self.random_factory = RandomFactory()
 

@@ -15,7 +15,8 @@ class HoversPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser=browser)
-        self.unique_element = Label(browser=browser, locator=self.HOVERS_PAGE_UNIQUE_LOC,
+        self.unique_element = Label(browser=browser,
+                                    locator=self.HOVERS_PAGE_UNIQUE_LOC,
                                     description="Hovers Page -> Hovers label")
         self.driver = browser.driver
 

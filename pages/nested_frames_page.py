@@ -13,7 +13,8 @@ class NestedFramesPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser=browser)
-        self.unique_element = Label(browser=browser, locator=self.NESTED_FRAMES_UNIQUE_LOC,
+        self.unique_element = Label(browser=browser,
+                                    locator=self.NESTED_FRAMES_UNIQUE_LOC,
                                     description="Nested Frames Page -> Nested Frames label")
 
     def open(self):
@@ -25,10 +26,12 @@ class NestedFramesPage(BasePage):
 
     def check_parent_iframe(self):
         try:
-            iframe = Container(browser=self.browser, locator=self.IFRAME_PARENT_CONTAINER,
+            iframe = Container(browser=self.browser,
+                               locator=self.IFRAME_PARENT_CONTAINER,
                                description="Nested Frames Page -> Iframe parent container")
             self.browser.switch_to_frame(iframe)
-            parent_frame_text = Label(browser=self.browser, locator=self.PARENT_FRAME_LABEL,
+            parent_frame_text = Label(browser=self.browser,
+                                      locator=self.PARENT_FRAME_LABEL,
                                       description="Nested Frames Page -> Parent frame text")
             parent_frame_text.wait_for_visible()
             return True
@@ -37,10 +40,12 @@ class NestedFramesPage(BasePage):
 
     def check_child_iframe(self):
         try:
-            iframe = Container(browser=self.browser, locator=self.IFRAME_CHILD_CONTAINER,
+            iframe = Container(browser=self.browser,
+                               locator=self.IFRAME_CHILD_CONTAINER,
                                description="Nested Frames Page -> Iframe child container")
             self.browser.switch_to_frame(iframe)
-            child_frame_text = Label(browser=self.browser, locator=self.CHILD_FRAME_LABEL,
+            child_frame_text = Label(browser=self.browser,
+                                     locator=self.CHILD_FRAME_LABEL,
                                      description="Nested Frames Page -> Child frame text")
             child_frame_text.wait_for_visible()
             return True

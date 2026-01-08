@@ -11,7 +11,8 @@ class WindowsPage(BasePage):
 
     def __init__(self, browser):
         super().__init__(browser=browser)
-        self.unique_element = Label(browser=browser, locator=self.WINDOWS_PAGE_UNIQUE_LOC,
+        self.unique_element = Label(browser=browser,
+                                    locator=self.WINDOWS_PAGE_UNIQUE_LOC,
                                     description="Windows Page -> Windows page label")
 
     def open(self):
@@ -24,7 +25,8 @@ class WindowsPage(BasePage):
     def check_open_new_tab(self, label: str, title: str):
         try:
             self.browser.switch_to_new_tab()
-            new_window_label = Label(browser=self.browser, locator=self.NEW_WINDOW_TAB_LABEL.format(text=label),
+            new_window_label = Label(browser=self.browser,
+                                     locator=self.NEW_WINDOW_TAB_LABEL.format(text=label),
                                      description="Windows Page -> New window page label")
             new_window_label.wait_for_visible()
             new_window_title = self.browser.get_title_current_page()
@@ -34,7 +36,8 @@ class WindowsPage(BasePage):
 
     def check_link(self):
         try:
-            link = Label(browser=self.browser, locator=self.NEW_WINDOW_LINK,
+            link = Label(browser=self.browser,
+                         locator=self.NEW_WINDOW_LINK,
                          description="Windows Page -> New window link")
             link.wait_for_visible()
             link.click()
