@@ -20,6 +20,13 @@ class AuthPage(BasePage):
         except TimeoutException as err:
             Logger.error(f"{err}: cannot authorize on {self.page_name}")
 
+    def open(self):
+        try:
+            self.wait_for_open()
+            return True
+        except TimeoutException:
+            return False
+
     def is_auth_success(self):
         try:
             success_message = Label(browser=self.browser,
