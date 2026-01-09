@@ -110,3 +110,5 @@ class BaseElement:
 
     def right_click(self):
         self.actions.context_click().perform()
+
+
