@@ -92,9 +92,11 @@ class Browser:
         self.switch_to_window(self.original_window)
 
     def go_back(self):
+        Logger.info(f"Back to previous window")
         self._driver.back()
 
     def get_title_current_page(self):
+        Logger.info(f"Get title current page")
         return self._driver.title
 
     def scroll_to_element(self, element):
