@@ -12,3 +12,4 @@ class URLs(StrEnum):
     FRAMES_PAGE = "https://demoqa.com/frames"
     DYNAMIC_CONTENT_PAGE = "http://the-internet.herokuapp.com/dynamic_content"
     INFINITE_SCROLL_PAGE = "http://the-internet.herokuapp.com/infinite_scroll"
+    UPLOAD_IMAGE_PAGE = "http://the-internet.herokuapp.com/upload"

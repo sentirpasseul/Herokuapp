@@ -1,0 +1,87 @@
+from token import LBRACE
+
+from pages.base_page import BasePage
+from elements.custom_elements.label import Label
+from elements.custom_elements.input import Input
+from elements.custom_elements.container import Container
+from selenium.common.exceptions import TimeoutException
+import os
+
+
+class UploadImagePage(BasePage):
+    UPLOAD_IMAGE_UNIQUE_LOC = "//div[contains(@class, 'example')]//*[contains(text(), '{name}')]"
+    UPLOAD_IMAGE_INPUT_LOC = "file-upload"
+    UPLOAD_IMAGE_SUBMIT_BUTTON_LOC = "file-submit"
+    UPLOADED_FILE_TEXT = "uploaded-files"
+
+
+    def __init__(self, browser):
+        super().__init__(browser=browser)
+        self.unique_element = Label(
+            browser=browser,
+            locator=self.UPLOAD_IMAGE_UNIQUE_LOC.format(name="File Uploader"),
+            description="Upload Image Page -> File Uploader label"
+        )
+        self.image_loader = None
+        self.image_name = None
+
+    def open(self):
+        try:
+            self.wait_for_open()
+            return True
+        except TimeoutException:
+            return False
+
+    @staticmethod
+    def get_path_of_image(image_name: str):
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(current_dir, "..", "utils", "test_data", image_name)
+        final_path = os.path.abspath(file_path)
+        return final_path
+
+    def is_image_uploaded(self, image_name_path: str):
+        try:
+            self.image_loader = Input(browser=self.browser,
+                                 locator=self.UPLOAD_IMAGE_INPUT_LOC,
+                                 description="Upload Image Page -> Loader Image input")
+            self.image_loader.wait_for_visible()
+            self.image_loader.clear()
+            image = self.get_path_of_image(image_name_path)
+            self.image_loader.send_keys(image)
+            self.image_name = image_name_path
+            return True
+        except TimeoutException:
+            return False
+
+    def check_name_image(self):
+        try:
+            name = Label(browser=self.browser,
+                             locator=self.UPLOADED_FILE_TEXT,
+                             description="Upload Image Page -> Uploaded File label")
+            name.wait_for_visible()
+            return True if name == self.image_name else False
+        except TimeoutException:
+            return False
+
+    def check_upload_image_successful(self):
+        try:
+            submit_button = Container(browser=self.browser,
+                                      locator=self.UPLOAD_IMAGE_SUBMIT_BUTTON_LOC,
+                                      description="Upload Image Page -> Loader Image Submit button")
+            submit_button.click()
+            self.unique_element = Label(
+                browser=self.browser,
+                locator=self.UPLOAD_IMAGE_UNIQUE_LOC.format(name="File Uploaded"),
+                description="Upload Image Page -> File Uploader label"
+            )
+            self.open()
+            self.check_name_image()
+            return True
+        except TimeoutException:
+            return False
+
+
+
+
+
+
