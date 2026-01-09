@@ -26,12 +26,11 @@ class DynamicContentPage(BasePage):
                          locator=loc,
                          description=f"Image #{number}")
 
-
     def get_images(self):
         elements = self.get_image().wait_for_all_visible()
         images_containers = []
 
-        for i in range(1, len(elements)+1):
+        for i in range(1, len(elements) + 1):
             indexed_path = f"({self.IMAGES_LOC})[{i}]"
 
             container_obj = self.get_image(number=i, indexed_locator=indexed_path)

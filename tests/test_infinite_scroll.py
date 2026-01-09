@@ -1,6 +1,7 @@
 from pages.infinite_scroll_page import InfiniteScrollPage
 from config.urls import URLs
 
+
 class TestInfiniteScrollPage:
     ENGINEER_AGE = 25
 

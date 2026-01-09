@@ -14,4 +14,5 @@ class TestContextMenu:
         browser.get(URLs.CONTEXT_MENU_PAGE)
         context_menu_page = ContextMenuPage(browser=browser)
         assert context_menu_page.open(), "Ошибка при попытке открытия страницы с контекстным меню \n"
-        assert context_menu_page.check_context_menu(text=TestDataContextMenu.TEST_ALERT_TEXT), "Ошибка при попытке проверить контекстное меню \n"
+        assert context_menu_page.check_context_menu(
+            text=TestDataContextMenu.TEST_ALERT_TEXT), "Ошибка при попытке проверить контекстное меню \n"

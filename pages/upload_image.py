@@ -18,7 +18,6 @@ class UploadImagePage(BasePage):
     UPLOADED_IMAGE_TEXT = "//div[contains(@class, 'dz-filename')]"
     MARK_TEXT = "//*[contains(text(),'✔')]"
 
-
     def __init__(self, browser):
         super().__init__(browser=browser)
         self.unique_element = Label(
@@ -48,8 +47,8 @@ class UploadImagePage(BasePage):
     def is_image_uploaded(self, image_name_path: str):
         try:
             self.image_loader = Input(browser=self.browser,
-                                 locator=self.UPLOAD_IMAGE_INPUT_LOC,
-                                 description="Upload Image Page -> Loader Image input")
+                                      locator=self.UPLOAD_IMAGE_INPUT_LOC,
+                                      description="Upload Image Page -> Loader Image input")
             self.image_loader.wait_for_visible()
             self.image_loader.clear()
             image_path = self.get_path_of_image(image_name_path)
@@ -62,8 +61,8 @@ class UploadImagePage(BasePage):
     def check_name_image(self):
         try:
             name = Label(browser=self.browser,
-                             locator=self.UPLOADED_FILE_TEXT,
-                             description="Upload Image Page -> Uploaded File label")
+                         locator=self.UPLOADED_FILE_TEXT,
+                         description="Upload Image Page -> Uploaded File label")
             name.wait_for_visible()
             return True if name == self.image_name else False
         except TimeoutException:
@@ -95,21 +94,14 @@ class UploadImagePage(BasePage):
             area.click()
             self.pyautogui.upload_file(image_path)
             uploaded_image_text = Label(browser=self.browser,
-                                   locator=self.UPLOADED_IMAGE_TEXT,
-                                   description=f"Upload Image Page -> Uploaded Image Name label")
+                                        locator=self.UPLOADED_IMAGE_TEXT,
+                                        description=f"Upload Image Page -> Uploaded Image Name label")
             uploaded_image_text.wait_for_visible()
             mark_text = Label(browser=self.browser,
                               locator=self.MARK_TEXT,
                               description="Upload Image Page -> Mark label")
             mark_text.wait_for_visible()
 
-
-
-
             return True
         except TimeoutException:
             return False
-
-
-
-

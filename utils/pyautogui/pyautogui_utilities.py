@@ -14,14 +14,11 @@ class PyAutoGuiUtilities:
         pyautogui.hotkey('command', 'shift', 'g')
         time.sleep(self.TIMEOUT)
 
-        #pyautogui.hotkey('command', "a")
-        #pyautogui.press('delete')
-        time.sleep(self.TIMEOUT)
         pyautogui.write(file_path)
         time.sleep(self.TIMEOUT)
 
         Logger.debug("Press Enter")
         pyautogui.press("enter")
-
         time.sleep(self.TIMEOUT)
+
         pyautogui.press('enter')

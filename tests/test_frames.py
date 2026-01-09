@@ -1,6 +1,7 @@
 from pages.frames_page import FramePage
 from config.urls import URLs
 
+
 class TestFrames:
     def test_frames_page(self, browser):
         browser.get(URLs.FRAMES_PAGE)
