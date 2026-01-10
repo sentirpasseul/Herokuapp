@@ -35,6 +35,10 @@ class BaseElement:
     def element(self):
         return self.wait_for_presence()
 
+    @property
+    def text(self):
+        return f"{self.get_text()}"
+
     def __str__(self) -> str:
         return f"{self.__class__.__name__}[{self.description}]"
 

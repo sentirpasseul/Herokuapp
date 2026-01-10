@@ -29,7 +29,7 @@ class WindowsPage(BasePage):
                                      locator=self.NEW_WINDOW_TAB_LABEL.format(text=label),
                                      description="Windows Page -> New window page label")
             new_window_label.wait_for_visible()
-            new_window_title = self.browser.get_title_current_page()
+            new_window_title = self.browser.get_title()
             return True if new_window_title == title else False
         except TimeoutException:
             return False

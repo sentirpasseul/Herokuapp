@@ -47,6 +47,7 @@ class Browser:
             raise
 
     def refresh(self):
+        Logger.info("Page refresh")
         self._driver.refresh()
 
     def switch_to_alert(self):
@@ -86,16 +87,18 @@ class Browser:
     def switch_to_new_tab(self):
         for handle in self._driver.window_handles:
             if handle != self.original_window:
+                Logger.info(f"Switch to new tab: {handle}")
                 self.switch_to_window(handle)
 
     def switch_to_original_window(self):
+        Logger.info("Switch to original window")
         self.switch_to_window(self.original_window)
 
     def go_back(self):
         Logger.info(f"Back to previous window")
         self._driver.back()
 
-    def get_title_current_page(self):
+    def get_title(self):
         Logger.info(f"Get title current page")
         return self._driver.title
 
