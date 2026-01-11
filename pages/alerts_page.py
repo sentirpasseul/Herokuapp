@@ -1,8 +1,4 @@
-from enum import StrEnum
-
 from pages.base_page import BasePage
-from selenium.common.exceptions import TimeoutException
-from utils.logs.logger import Logger
 from utils.random.random_factory import RandomFactory
 from elements.custom_elements.label import Label
 
@@ -11,9 +7,9 @@ class AlertsPage(BasePage):
     ALERT_PAGE_UNIQUE_LOC = "//div[contains(@class,'example')]//*[contains(text(), 'JavaScript Alerts')]"
     ALERT_RESULT_TEXT = "//*[@*='result']"
 
-    JS_ALERT_BUTTON = "//button[@onclick = 'jsAlert()']"
-    JS_CONFIRM_BUTTON = "//button[@onclick = 'jsConfirm()']"
-    JS_PROMPT_BUTTON = "//button[@onclick = 'jsPrompt()']"
+    ALERT_BUTTON = "//button[@onclick = 'jsAlert()']"
+    CONFIRM_BUTTON = "//button[@onclick = 'jsConfirm()']"
+    PROMPT_BUTTON = "//button[@onclick = 'jsPrompt()']"
 
     def __init__(self, browser):
         super().__init__(browser)
@@ -28,11 +24,11 @@ class AlertsPage(BasePage):
     def get_random_string(self):
         return self.random_factory.get_random_string()
 
-    def click_js_alert_button(self) -> None:
-        self.element(locator=self.JS_ALERT_BUTTON).click()
+    def click_alert_button(self) -> None:
+        self.element(locator=self.ALERT_BUTTON).click()
 
-    def click_js_confirm_button(self) -> None:
-        self.element(locator=self.JS_CONFIRM_BUTTON).click()
+    def click_confirm_button(self) -> None:
+        self.element(locator=self.CONFIRM_BUTTON).click()
 
-    def click_js_prompt_button(self) -> None:
-        self.element(locator=self.JS_PROMPT_BUTTON).click()
+    def click_prompt_button(self) -> None:
+        self.element(locator=self.PROMPT_BUTTON).click()

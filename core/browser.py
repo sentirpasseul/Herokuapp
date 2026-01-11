@@ -26,7 +26,7 @@ class Browser:
         return self._driver.current_url
 
     def get(self, url: str) -> None:
-        Logger.info(f"{self} get: {url}")
+        Logger.info(f"Get: {url}")
         try:
             self._driver.get(url)
         except WebDriverException as err:

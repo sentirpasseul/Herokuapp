@@ -1,7 +1,8 @@
 from pages.alerts_page import AlertsPage
-from pages.js.alerts_js import AlertsJS
+from utils.js.alerts_js import AlertsJS
 from config.urls import URLs
 from enum import StrEnum
+import pytest
 
 
 class TestAlertsData(StrEnum):
@@ -17,26 +18,65 @@ class TestAlertsData(StrEnum):
 
 class TestAlerts:
 
-    def test_alerts(self, browser):
-        alerts_page = AlertsPage(browser)
+    @pytest.fixture(autouse=True)
+    def setup(self, browser):
         browser.get(URLs.ALERTS_PAGE)
-        assert alerts_page.wait_for_open(), "Ошибка при открытии страницы с алертами \n"
+        self.alerts_page = AlertsPage(browser)
+        self.alerts_js = AlertsJS(browser)
+        self.alerts_page.wait_for_open()
 
-        alerts_page.click_js_alert_button()
+    def test_alert_manual(self, browser):
+        self.alerts_page.click_alert_button()
+        browser.switch_to_alert()
         assert browser.get_alert_text() == TestAlertsData.ALERT_TEXT, "Ошибка при проверке текста алерта \n"
-        self.browser.confirm_alert()
-        assert browser.get == TestAlertsData.ALERT_RESULT_TEXT, "Ошибка при проверке результата текста алерта"
+        browser.confirm_alert()
+        assert self.alerts_page.get_result_text() == TestAlertsData.ALERT_RESULT_TEXT, \
+            "Ошибка при проверке результата текста алерта"
 
-        alerts_page.click_js_confirm_button()
-        self.browser.switch_to_alert()
-        assert browser.get_alert_text() == TestAlertsData.CONFIRM_TEXT, "Ошибка при проверке текста алерта типа Confirm"
-        self.browser.confirm_alert()
-        assert alerts_page.get_result_text() == TestAlertsData.CONFIRM_RESULT_TEXT, "Ошибка при проверке результата алерта типа Confirm"
+    def test_confirm_manual(self, browser):
+        self.alerts_page.click_confirm_button()
+        browser.switch_to_alert()
+        assert browser.get_alert_text() == TestAlertsData.CONFIRM_TEXT, \
+            "Ошибка при проверке текста алерта типа Confirm"
+        browser.confirm_alert()
+        assert self.alerts_page.get_result_text() == TestAlertsData.CONFIRM_RESULT_TEXT, \
+            "Ошибка при проверке результата алерта типа Confirm"
 
-        alerts_page.click_js_prompt_button()
-        self.browser.switch_to_alert()
-        random_string = alerts_page.get_random_string()
-        assert browser.get_alert_text() == TestAlertsData.PROMPT_TEXT, "Ошибка при проверке текста алерта типа Prompt"
-        self.browser.send_keys_alert(random_string)
-        self.browser.confirm_alert()
-        assert alerts_page.get_result_text() == TestAlertsData.PROMPT_RESULT_TEXT, "Ошибка при проверке результата алерта типа Prompt"
+    def test_prompt_manual(self, browser):
+        self.alerts_page.click_prompt_button()
+        browser.switch_to_alert()
+        random_string = self.alerts_page.get_random_string()
+        assert browser.get_alert_text() == TestAlertsData.PROMPT_TEXT, \
+            "Ошибка при проверке текста алерта типа Prompt"
+        browser.send_keys_alert(random_string)
+        browser.confirm_alert()
+        assert self.alerts_page.get_result_text() == TestAlertsData.PROMPT_RESULT_TEXT + random_string, \
+            "Ошибка при проверке результата алерта типа Prompt"
+
+    def test_alert_with_js(self, browser):
+        self.alerts_js.click_button_with_js(self.alerts_js.BUTTON_ALERT_JS)
+        browser.switch_to_alert()
+        assert browser.get_alert_text() == TestAlertsData.ALERT_TEXT, "Ошибка при проверке текста алерта \n"
+        browser.confirm_alert()
+        assert self.alerts_js.get_result_text_with_js() == TestAlertsData.ALERT_RESULT_TEXT, \
+            "Ошибка при проверке результата текста алерта"
+
+    def test_confirm_with_js(self, browser):
+        self.alerts_js.click_button_with_js(self.alerts_js.BUTTON_CONFIRM_JS)
+        browser.switch_to_alert()
+        assert browser.get_alert_text() == TestAlertsData.CONFIRM_TEXT, \
+            "Ошибка при проверке текста алерта типа Confirm"
+        browser.confirm_alert()
+        assert self.alerts_js.get_result_text_with_js() == TestAlertsData.CONFIRM_RESULT_TEXT, \
+            "Ошибка при проверке результата алерта типа Confirm"
+
+    def test_prompt_with_js(self, browser):
+        self.alerts_js.click_button_with_js(self.alerts_js.BUTTON_PROMPT_JS)
+        browser.switch_to_alert()
+        random_string = self.alerts_page.get_random_string()
+        assert browser.get_alert_text() == TestAlertsData.PROMPT_TEXT, \
+            "Ошибка при проверке текста алерта типа Prompt"
+        browser.send_keys_alert(random_string)
+        browser.confirm_alert()
+        assert self.alerts_js.get_result_text_with_js() == TestAlertsData.PROMPT_RESULT_TEXT + random_string, \
+            "Ошибка при проверке результата алерта типа Prompt"
