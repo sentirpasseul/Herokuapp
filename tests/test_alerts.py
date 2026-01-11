@@ -20,7 +20,7 @@ class TestAlerts:
     def test_alerts(self, browser):
         alerts_page = AlertsPage(browser)
         browser.get(URLs.ALERTS_PAGE)
-        assert alerts_page.open(), "Ошибка при открытии страницы с алертами \n"
+        assert alerts_page.wait_for_open(), "Ошибка при открытии страницы с алертами \n"
 
         alerts_page.click_js_alert_button()
         assert browser.get_alert_text() == TestAlertsData.ALERT_TEXT, "Ошибка при проверке текста алерта \n"

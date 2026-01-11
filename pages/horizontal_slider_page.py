@@ -25,13 +25,6 @@ class HorizontalSliderPage(BasePage):
                              locator=self.HORIZONTAL_SLIDER_COUNT,
                              description="Horizontal Slider Page -> Counter label")
 
-    def open(self):
-        try:
-            self.wait_for_open()
-            return True
-        except TimeoutException:
-            return False
-
     def get_min_range(self):
         return float(self.slider.get_attribute("min"))
 

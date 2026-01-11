@@ -20,13 +20,6 @@ class HoversPage(BasePage):
                                     description="Hovers Page -> Hovers label")
         self.driver = browser.driver
 
-    def open(self):
-        try:
-            self.wait_for_open()
-            return True
-        except TimeoutException:
-            return False
-
     def get_user_card_username(self, user_id):
         dynamic_locator = self.USER_CARD_USERNAME.format(user_id=user_id)
         return Label(browser=self.browser,

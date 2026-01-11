@@ -15,13 +15,6 @@ class InfiniteScrollPage(BasePage):
                                     locator=self.INFINITE_SCROLL_PAGE_UNIQUE_LOC,
                                     description="Infinite Scroll Page -> Infinite Scroll label")
 
-    def open(self):
-        try:
-            self.wait_for_open()
-            return True
-        except TimeoutException:
-            return False
-
     def get_paragraph(self, number: int = None):
         locator = f"{self.PARAGRAPH_LOC}[{number}]" if number else self.PARAGRAPH_LOC
         return Container(browser=self.browser,

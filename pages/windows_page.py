@@ -15,13 +15,6 @@ class WindowsPage(BasePage):
                                     locator=self.WINDOWS_PAGE_UNIQUE_LOC,
                                     description="Windows Page -> Windows page label")
 
-    def open(self):
-        try:
-            self.wait_for_open()
-            return True
-        except TimeoutException:
-            return False
-
     def check_open_new_tab(self, label: str, title: str):
         try:
             self.browser.switch_to_new_tab()

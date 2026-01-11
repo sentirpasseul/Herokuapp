@@ -16,6 +16,6 @@ class TestHorizontalSlider:
         random_value = self.get_random_float_from_range(min_value=horizontal_slider.get_min_range(),
                                                         max_value=horizontal_slider.get_max_range(),
                                                         step=horizontal_slider.get_step_range())
-        assert horizontal_slider.open(), "Ошибка при открытии страницы с горизонтальным слайдером \n"
+        assert horizontal_slider.wait_for_open(), "Ошибка при открытии страницы с горизонтальным слайдером \n"
         assert horizontal_slider.check_horizontal_slider(
             random_value), "Ошибка при проверке горизонтального слайдера \n"

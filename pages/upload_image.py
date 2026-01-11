@@ -30,13 +30,6 @@ class UploadImagePage(BasePage):
         self.image_path = None
         self.pyautogui = PyAutoGuiUtilities()
 
-    def open(self):
-        try:
-            self.wait_for_open()
-            return True
-        except TimeoutException:
-            return False
-
     @staticmethod
     def get_path_of_image(image_name: str):
         current_dir = os.path.dirname(os.path.abspath(__file__))

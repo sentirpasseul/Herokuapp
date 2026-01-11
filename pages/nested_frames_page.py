@@ -17,13 +17,6 @@ class NestedFramesPage(BasePage):
                                     locator=self.NESTED_FRAMES_UNIQUE_LOC,
                                     description="Nested Frames Page -> Nested Frames label")
 
-    def open(self):
-        try:
-            self.wait_for_open()
-            return True
-        except TimeoutException:
-            return False
-
     def check_parent_iframe(self):
         try:
             iframe = Container(browser=self.browser,

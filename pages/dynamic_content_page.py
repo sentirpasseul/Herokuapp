@@ -13,13 +13,6 @@ class DynamicContentPage(BasePage):
         self.unique_element = Label(browser=browser, locator=self.DYNAMIC_CONTENT_PAGE_UNIQUE_LOC,
                                     description="Dynamic Content Page -> Dynamic Content label")
 
-    def open(self):
-        try:
-            self.wait_for_open()
-            return True
-        except TimeoutException:
-            return False
-
     def get_image(self, number: int = 1, indexed_locator: str = None):
         loc = indexed_locator if indexed_locator else self.IMAGES_LOC
         return Container(browser=self.browser,

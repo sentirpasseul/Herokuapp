@@ -13,7 +13,7 @@ class TestWindows:
     def test_windows_page(self, browser):
         browser.get(url=URLs.WINDOWS_PAGE)
         windows_page = WindowsPage(browser)
-        assert windows_page.open(), "Ошибка при открытии страницы Windows Page"
+        assert windows_page.wait_for_open(), "Ошибка при открытии страницы Windows Page"
         assert windows_page.check_link(), "Ошибка при проверке ссылки Click Here"
         assert windows_page.check_open_new_tab(label=TestData.TEXT_NEW_PAGE, title=TestData.TITLE_NEW_PAGE), (
             "Ошибка при проверки открытия новой вкладки")

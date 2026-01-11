@@ -10,7 +10,7 @@ class TestData(StrEnum):
 class TestUploadImage:
 
     def test_upload_image_page_open(self):
-        assert self.upload_image_page.open(), "Ошибка при открытии страницы с загрузчиком изображения"
+        assert self.upload_image_page.wait_for_open(), "Ошибка при открытии страницы с загрузчиком изображения"
 
     def test_upload_image(self, browser):
         browser.get(URLs.UPLOAD_IMAGE_PAGE)

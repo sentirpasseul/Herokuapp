@@ -22,13 +22,6 @@ class AlertsPage(BasePage):
                                     description="JavaScript Alerts Page -> JavaScript Alerts label")
         self.random_factory = RandomFactory()
 
-    def open(self):
-        try:
-            self.wait_for_open()
-            return True
-        except TimeoutException:
-            return False
-
     def get_result_text(self):
         return self.element(locator=self.ALERT_RESULT_TEXT).get_text()
 

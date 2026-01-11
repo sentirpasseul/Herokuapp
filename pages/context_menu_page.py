@@ -17,13 +17,6 @@ class ContextMenuPage(BasePage):
                                     description="Context Menu Page - > Context Menu label")
         self.alerts = AlertsPage(browser)
 
-    def open(self):
-        try:
-            self.wait_for_open()
-            return True
-        except TimeoutException:
-            return False
-
     def check_context_menu(self, text):
         try:
             context_area = Container(browser=self.browser,

@@ -18,13 +18,6 @@ class FramePage(BasePage):
                                     description="Frames Page -> Frames Page Label")
         self.nested_frames_page = NestedFramesPage(browser)
 
-    def open(self):
-        try:
-            self.wait_for_open()
-            return True
-        except TimeoutException:
-            return False
-
     def check_collapse_menu(self):
         try:
             menu_item = Container(browser=self.browser,
