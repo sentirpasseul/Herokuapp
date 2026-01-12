@@ -3,6 +3,7 @@ from enum import StrEnum
 
 class URLs(StrEnum):
     BASE_URL = "http://the-internet.herokuapp.com"
+    BASIC_AUTH_URL = "the-internet.herokuapp.com/basic_auth"
     AUTH_PAGE = "https://admin:admin@the-internet.herokuapp.com/basic_auth"
     ALERTS_PAGE = "https://the-internet.herokuapp.com/javascript_alerts"
     CONTEXT_MENU_PAGE = "http://the-internet.herokuapp.com/context_menu"

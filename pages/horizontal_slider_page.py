@@ -9,20 +9,20 @@ from elements.custom_elements.input import Input
 
 
 class HorizontalSliderPage(BasePage):
-    HORIZONTAL_SLIDER_PAGE_UNIQUE_LOC = "//div[contains(@class, 'example')]//*[contains(text(), 'Horizontal Slider')]"
-    HORIZONTAL_SLIDER_INPUT_LOC = "//input[@type='range']"
-    HORIZONTAL_SLIDER_COUNT = "range"
+    UNIQUE_LOC = "//div[contains(@class, 'example')]//*[contains(text(), 'Horizontal Slider')]"
+    INPUT_LOC = "//input[@type='range']"
+    COUNTER = "range"
 
     def __init__(self, browser):
         super().__init__(browser)
         self.unique_element = Label(browser=browser,
-                                    locator=self.HORIZONTAL_SLIDER_PAGE_UNIQUE_LOC,
+                                    locator=self.UNIQUE_LOC,
                                     description="Horizontal Slider Page -> Label")
         self.slider = HorizontalSlider(browser=browser,
-                                       locator=self.HORIZONTAL_SLIDER_INPUT_LOC,
+                                       locator=self.INPUT_LOC,
                                        description="Horizontal Slider Page -> Horizontal Slider input")
         self.counter = Label(browser=browser,
-                             locator=self.HORIZONTAL_SLIDER_COUNT,
+                             locator=self.COUNTER,
                              description="Horizontal Slider Page -> Counter label")
 
     def get_min_range(self) -> float:

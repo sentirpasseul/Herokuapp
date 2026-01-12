@@ -1,23 +1,27 @@
 from pages.base_page import BasePage
 from elements.custom_elements.label import Label
-from elements.custom_elements.container import Container
+from elements.custom_elements.web_element import WebElement
 from selenium.common.exceptions import TimeoutException
 
 
 class DynamicContentPage(BasePage):
-    DYNAMIC_CONTENT_PAGE_UNIQUE_LOC = "//div[contains(@class, 'example')]//*[contains(text(), 'Dynamic Content')]"
+    UNIQUE_LOC = "//div[contains(@class, 'example')]//*[contains(text(), 'Dynamic Content')]"
     IMAGES_LOC = "//*[@id='content']//img"
 
     def __init__(self, browser):
         super().__init__(browser)
-        self.unique_element = Label(browser=browser, locator=self.DYNAMIC_CONTENT_PAGE_UNIQUE_LOC,
+        self.unique_element = Label(browser=browser, locator=self.UNIQUE_LOC,
                                     description="Dynamic Content Page -> Dynamic Content label")
+        self.image = WebElement(browser=self.browser,
+                          locator=loc,
+                          description=f"Image #{number}")
+
 
     def get_image(self, number: int = 1, indexed_locator: str = None):
         loc = indexed_locator if indexed_locator else self.IMAGES_LOC
-        return Container(browser=self.browser,
-                         locator=loc,
-                         description=f"Image #{number}")
+        return WebElement(browser=self.browser,
+                          locator=loc,
+                          description=f"Image #{number}")
 
     def get_images(self):
         elements = self.get_image().wait_for_all_visible()

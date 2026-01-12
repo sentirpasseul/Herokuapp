@@ -2,7 +2,6 @@ from enum import StrEnum
 from config.urls import URLs
 
 from pages.context_menu_page import ContextMenuPage
-from pages.alerts_page import AlertsPage
 
 
 class TestDataContextMenu(StrEnum):

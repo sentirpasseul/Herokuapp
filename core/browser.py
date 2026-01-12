@@ -60,6 +60,7 @@ class Browser:
             return NoAlertPresentException
 
     def get_alert_text(self):
+        self.switch_to_alert()
         text = self.alert.text
         Logger.info(f"Get alert text: {text}")
         return text
