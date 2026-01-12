@@ -17,5 +17,5 @@ class TestContextMenu:
         context_menu_page.wait_for_open()
         context_menu_page.open_context_menu_in_area()
         browser.switch_to_alert()
-        assert browser.get_alert_text() == TestDataContextMenu.TEST_ALERT_TEXT, ""
+        assert browser.get_alert_text() == TestDataContextMenu.TEST_ALERT_TEXT, "Ошибка при проверке текста алерта"
         browser.confirm_alert()
