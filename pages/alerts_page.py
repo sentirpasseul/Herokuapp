@@ -11,6 +11,12 @@ class AlertsPage(BasePage):
     CONFIRM_BUTTON = "//button[@onclick = 'jsConfirm()']"
     PROMPT_BUTTON = "//button[@onclick = 'jsPrompt()']"
 
+    BUTTON_ALERT_JS = "jsAlert()"
+    BUTTON_CONFIRM_JS = "jsConfirm()"
+    BUTTON_PROMPT_JS = "jsPrompt()"
+
+    RESULT_TEXT_ID = 'result'
+
     def __init__(self, browser):
         super().__init__(browser)
         self.unique_element = Label(browser=browser,

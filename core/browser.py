@@ -107,3 +107,11 @@ class Browser:
             "arguments[0].scrollIntoView({block: 'center'})",
             element
         )
+
+    def click_button_with_js(self, selector: str) -> None:
+        script = f"document.querySelector('[onClick=\"{selector}\"]').click();"
+        self.execute_script(script)
+
+    def get_text_with_js(self, selector: str):
+        script = f"return document.getElementById('{selector}').innerText;"
+        return self.execute_script(script)
