@@ -82,7 +82,7 @@ class Browser:
 
     def execute_script(self, script, *args):
         Logger.info(f"Execute script: {script}")
-        self._driver.execute_script(script, *args)
+        return self._driver.execute_script(script, *args)
 
     def switch_to_new_tab(self):
         for handle in self._driver.window_handles:
