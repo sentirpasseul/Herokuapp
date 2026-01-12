@@ -17,19 +17,8 @@ class ContextMenuPage(BasePage):
                                     description="Context Menu Page - > Context Menu label")
         self.alerts = AlertsPage(browser)
 
-    def check_context_menu(self, text):
-        try:
-            context_area = Container(browser=self.browser,
-                                     locator=self.CONTEXT_AREA_LOC,
-                                     description="Context Menu Page -> Hot Spot Area container")
-            context_area.wait_for_visible()
-            context_area.move_mouse_to_div()
-            context_area.right_click()
-            self.browser.switch_to_alert()
-            self.alerts.check_alert_text(text=text)
-            self.browser.confirm_alert()
-            Logger.info(f"Check {self.page_name} successfully!")
-            return True
-        except Exception as err:
-            Logger.error(f"Failed to check context_menu: {err}")
-            return False
+    def open_context_menu_in_area(self) -> None:
+        context_area = Container(browser=self.browser,
+                                 locator=self.CONTEXT_AREA_LOC,
+                                 description="Context Menu Page -> Hot Spot Area container")
+        context_area.open_context_menu()

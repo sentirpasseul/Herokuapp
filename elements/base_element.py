@@ -114,3 +114,8 @@ class BaseElement:
 
     def right_click(self):
         self.actions.context_click().perform()
+
+    def open_context_menu(self):
+        self.wait_for_visible()
+        self.move_mouse_to_div()
+        self.right_click()
