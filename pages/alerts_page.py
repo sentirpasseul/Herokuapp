@@ -3,6 +3,7 @@ from utils.random.random_factory import RandomFactory
 from elements.custom_elements.label import Label
 from elements.custom_elements.button import Button
 
+
 class AlertsPage(BasePage):
     UNIQUE_LOC = "//div[contains(@class,'example')]//*[contains(text(), 'JavaScript Alerts')]"
     ALERT_RESULT_TEXT = "//*[@*='result']"
@@ -32,8 +33,8 @@ class AlertsPage(BasePage):
                                      locator=self.CONFIRM_BUTTON,
                                      description="JavaScript Alerts Page -> Confirm button")
         self.prompt_button = Button(browser=browser,
-                                     locator=self.PROMPT_BUTTON,
-                                     description="JavaScript Alerts Page -> Prompt button")
+                                    locator=self.PROMPT_BUTTON,
+                                    description="JavaScript Alerts Page -> Prompt button")
         self.random_factory = RandomFactory()
 
     def get_result_text(self):
@@ -41,9 +42,6 @@ class AlertsPage(BasePage):
 
     def get_random_string(self):
         return self.random_factory.get_random_string()
-
-    def get_alert_text(self):
-        return self.browser.get_alert_text()
 
     def click_alert_button(self) -> None:
         self.alert_button.click()
@@ -63,12 +61,5 @@ class AlertsPage(BasePage):
     def click_prompt_button_with_js(self) -> None:
         self.browser.click_button_with_js(self.BUTTON_PROMPT_JS)
 
-    def accept_alert(self) -> None:
-        self.browser.confirm_alert()
-
-    def send_keys_to_alert(self, value) -> None:
-        self.browser.send_keys_alert(value)
-
     def get_result_text_with_js(self):
         return self.browser.get_text_with_js(self.RESULT_TEXT_ID)
-

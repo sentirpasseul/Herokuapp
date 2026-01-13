@@ -86,21 +86,13 @@ class BaseElement:
         return self.wait_for_not(expected_condition=expected_conditions.invisibility_of_element_located)
 
     def click(self):
-        try:
-            self.wait_for(expected_condition=expected_conditions.element_to_be_clickable).click()
-            Logger.info(f"Clicked element: {self}")
-        except TimeoutException as err:
-            Logger.error(f"Failed to click element {self}: {err}")
-            return False
+        self.wait_for(expected_condition=expected_conditions.element_to_be_clickable).click()
+        Logger.info(f"Clicked element: {self}")
 
     def get_text(self):
-        try:
-            text = self.wait_for(expected_condition=expected_conditions.visibility_of_element_located).text
-            Logger.info(f"Get text: {text}")
-            return text
-        except TimeoutException as err:
-            Logger.error(f"Failed to get text: {err}")
-            return False
+        text = self.wait_for(expected_condition=expected_conditions.visibility_of_element_located).text
+        Logger.info(f"Get text: {text}")
+        return text
 
     def get_attribute(self, name: str):
         return self.wait_for_presence().get_attribute(name)
