@@ -32,6 +32,3 @@ class BasePage:
     @property
     def get_current_url(self):
         return self.browser.current_url
-
-    def go_back(self):
-        self.browser.go_back()

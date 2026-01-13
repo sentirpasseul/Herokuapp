@@ -1,6 +1,9 @@
+from core.browser import Browser
+
+
 class AlertHandler:
 
-    def __init__(self, browser):
+    def __init__(self, browser: Browser):
         self.browser = browser
 
     def get_alert_text(self):

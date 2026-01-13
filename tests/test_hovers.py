@@ -1,12 +1,14 @@
 from pages.hovers_page import HoversPage
 from elements.custom_elements.user_card import UserCard
 from config.urls import URLs
+from elements.common.window_handler import WindowHandler
 
 
 class TestHovers:
     def test_hovers_page(self, browser):
         browser.get(URLs.HOVERS_PAGE)
         hovers_page = HoversPage(browser=browser)
+        window_handler = WindowHandler(browser)
 
         hovers_page.wait_for_open()
         all_cards = hovers_page.cards
@@ -18,4 +20,4 @@ class TestHovers:
             card.hover()
             card.link_profile.click()
             assert hovers_page.get_current_url == UserCard.LINK_PROFILE.format(index=i), "Ошибка при проверке URL профиля"
-            hovers_page.go_back()
+            window_handler.go_back()

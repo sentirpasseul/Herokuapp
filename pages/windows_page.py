@@ -15,51 +15,16 @@ class WindowsPage(BasePage):
                                     locator=self.UNIQUE_LOC,
                                     description="Windows Page -> Windows page label")
         self.new_window_label = Label(browser=self.browser,
-                                     locator=self.NEW_WINDOW_TAB_LABEL.format(text=label),
+                                     locator=self.NEW_WINDOW_TAB_LABEL,
                                      description="Windows Page -> New window page label")
         self.link = Label(browser=self.browser,
                          locator=self.NEW_WINDOW_LINK,
                          description="Windows Page -> New window link")
 
+    def click_link(self) -> None:
+        self.link.click()
 
-    def check_open_new_tab(self, label: str, title: str):
-        try:
-            self.browser.switch_to_new_tab()
+    def get_new_window_title(self):
+        return self.browser.get_title()
 
-            new_window_label.wait_for_visible()
-            new_window_title = self.browser.get_title()
-            return True if new_window_title == title else False
-        except TimeoutException:
-            return False
 
-    def check_link(self):
-        try:
-
-            link.wait_for_visible()
-            link.click()
-            return True
-        except TimeoutException:
-            return False
-
-    def check_return_to_original_page(self):
-        try:
-            self.browser.switch_to_original_window()
-            self.open()
-            return True
-        except TimeoutException:
-            return False
-
-    def check_close_tabs(self):
-        try:
-            handles = self.browser.driver.window_handles
-            if len(handles) <= 1:
-                return True
-
-            for handle in handles[1:]:
-                self.browser.switch_to_window(handle)
-                self.browser.close()
-
-            self.browser.switch_to_original_window()
-            return True
-        except TimeoutException:
-            return False
