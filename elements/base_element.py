@@ -32,10 +32,6 @@ class BaseElement:
         self.actions = ActionChains(self.browser.driver)
 
     @property
-    def element(self):
-        return self.wait_for_presence()
-
-    @property
     def text(self):
         return f"{self.get_text()}"
 
@@ -95,19 +91,25 @@ class BaseElement:
         return text
 
     def get_attribute(self, name: str):
-        return self.wait_for_presence().get_attribute(name)
+        attribute = self.wait_for_presence().get_attribute(name)
+        Logger.info(f"Get attribute: {attribute}")
+        return attribute
 
     def is_enabled(self):
+        Logger.info(f"{self} is enabled")
         return self.wait_for(expected_condition=expected_conditions.visibility_of_element_located).is_enabled()
 
-    def move_mouse_to_div(self):
-        div = self.wait_for_visible()
-        self.actions.move_to_element(div).perform()
+    def move_mouse_to_element(self):
+        element = self.wait_for_visible()
+        self.actions.move_to_element(element).perform()
+        Logger.info(f"Move mouse to {element}")
 
-    def right_click(self):
+    def context_click(self):
         self.actions.context_click().perform()
+        Logger.info("Right click")
 
     def open_context_menu(self):
         self.wait_for_visible()
-        self.move_mouse_to_div()
-        self.right_click()
+        self.move_mouse_to_element()
+        self.context_click()
+        Logger.info("Open context menu")

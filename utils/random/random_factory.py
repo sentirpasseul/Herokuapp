@@ -3,7 +3,8 @@ import random
 
 
 class RandomFactory:
-    STRING_LENGTH = 10
+    DEFAULT_STRING_LENGTH = 10
 
-    def get_random_string(self):
-        return "".join(random.choice(string.ascii_letters) for i in range(self.STRING_LENGTH))
+    @staticmethod
+    def get_random_string(string_length: int = DEFAULT_STRING_LENGTH):
+        return "".join(random.choice(string.ascii_letters) for _ in range(RandomFactory.DEFAULT_STRING_LENGTH))

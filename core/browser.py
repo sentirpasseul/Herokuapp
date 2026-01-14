@@ -86,10 +86,15 @@ class Browser:
         return self._driver.execute_script(script, *args)
 
     def switch_to_new_tab(self):
-        for handle in self._driver.window_handles:
-            if handle != self.original_window:
-                Logger.info(f"Switch to new tab: {handle}")
-                self.switch_to_window(handle)
+        if not hasattr(self, 'original_window') or self.original_window is None:
+            self.original_window = self._driver.current_window_handle
+
+        all_handles = self._driver.window_handles
+        if len(all_handles) > 1:
+            self._driver.switch_to.window(all_handles[-1])
+            Logger.info("Switch to new tab")
+        else:
+            raise Exception("No new tab found to switch to")
 
     def switch_to_original_window(self):
         Logger.info("Switch to original window")

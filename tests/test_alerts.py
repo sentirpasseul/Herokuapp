@@ -29,7 +29,7 @@ class TestAlerts:
 
     def test_prompt_manual(self):
         self.alerts_page.click_prompt_button()
-        random_string = self.alerts_page.get_random_string()
+        random_string = self.alerts_page.get_random_string(TestAlertsData.STRING_LENGTH)
         assert self.alerts_page.alerts.get_alert_text() == TestAlertsData.PROMPT_TEXT, \
             "Ошибка при проверке текста алерта типа Prompt"
         self.alerts_page.alerts.send_keys_to_alert(random_string)
@@ -54,7 +54,7 @@ class TestAlerts:
 
     def test_prompt_with_js(self):
         self.alerts_page.click_prompt_button_with_js()
-        random_string = self.alerts_page.get_random_string()
+        random_string = self.alerts_page.get_random_string(TestAlertsData.STRING_LENGTH)
         assert self.alerts_page.alerts.get_alert_text() == TestAlertsData.PROMPT_TEXT, \
             "Ошибка при проверке текста алерта типа Prompt"
         self.alerts_page.alerts.send_keys_to_alert(random_string)

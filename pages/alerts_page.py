@@ -40,8 +40,8 @@ class AlertsPage(BasePage):
     def get_result_text(self):
         return self.result_text.get_text()
 
-    def get_random_string(self):
-        return self.random_factory.get_random_string()
+    def get_random_string(self, string_length: int):
+        return self.random_factory.get_random_string(string_length)
 
     def click_alert_button(self) -> None:
         self.alert_button.click()

@@ -4,6 +4,7 @@ from elements.custom_elements.label import Label
 
 class AuthPage(BasePage):
     UNIQUE_LOC = "//*[contains(text(), 'Basic Auth')]"
+    SUCCESS_MESSAGE = "//div[contains(@class, 'example')]//*[contains(text(), 'Congratulations!')]"
 
     def __init__(self, browser):
         super().__init__(browser)
@@ -11,7 +12,7 @@ class AuthPage(BasePage):
                                     locator=self.UNIQUE_LOC,
                                     description="Basic Auth Page -> Basic Auth label")
         self.success_message = Label(browser=self.browser,
-                                     locator='//p[contains(text(), "Congratulations! You must have the proper credentials.")]',
+                                     locator=self.SUCCESS_MESSAGE,
                                      description="Basic Auth Page -> Success auth message label")
 
     def is_success_message_visible(self):

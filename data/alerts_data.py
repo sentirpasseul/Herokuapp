@@ -1,7 +1,4 @@
-from enum import StrEnum
-
-
-class TestAlertsData(StrEnum):
+class TestAlertsData:
     ALERT_TEXT = "I am a JS Alert"
     ALERT_RESULT_TEXT = "You successfully clicked an alert"
 
@@ -10,3 +7,5 @@ class TestAlertsData(StrEnum):
 
     PROMPT_TEXT = "I am a JS prompt"
     PROMPT_RESULT_TEXT = "You entered: "
+
+    STRING_LENGTH = 10

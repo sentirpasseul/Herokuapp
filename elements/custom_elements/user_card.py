@@ -28,4 +28,4 @@ class UserCard(BaseElement):
                                   timeout=self.TIMEOUT)
 
     def hover(self) -> None:
-        self.user_card.move_mouse_to_div()
+        self.user_card.move_mouse_to_element()
