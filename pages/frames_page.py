@@ -27,8 +27,8 @@ class FramePage(BasePage):
                                              description="Frames Page -> Nested Frames menu item")
         self.nested_frames_page = NestedFramesPage(browser)
 
-    def check_collapse_menu(self):
-        if self.menu_item.wait_for_element_not_visible():
-            self.menu.click()
-        self.nested_frames_menu_item.wait_for_visible()
+    def click_menu(self) -> None:
+        self.menu.click()
+
+    def menu_item_click(self) -> None:
         self.nested_frames_menu_item.click()
