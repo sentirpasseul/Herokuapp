@@ -20,3 +20,6 @@ class WindowHandler:
 
     def go_back(self) -> None:
         self.browser.go_back()
+
+    def refresh(self) -> None:
+        self.browser.refresh()

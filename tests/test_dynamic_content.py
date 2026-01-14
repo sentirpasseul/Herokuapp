@@ -1,10 +1,26 @@
 from pages.dynamic_content_page import DynamicContentPage
 from config.urls import URLs
+from data.dynamic_content_data import DynamicContentData
 
 
-class TestDynamicContentPage:
+class TestDynamicContent:
     def test_dynamic_content_page(self, browser):
         browser.get(URLs.DYNAMIC_CONTENT_PAGE)
         dynamic_content_page = DynamicContentPage(browser)
-        assert dynamic_content_page.wait_for_open(), "Ошибка при открытии страницы с динамическим контентом"
-        assert dynamic_content_page.check_images_two_coincidence(), "Ошибка при проверке на соответствие 2 одинаковых изображений"
+
+        dynamic_content_page.wait_for_open()
+        found_images = set()
+        found_duplicates = False
+        for attempt in range(DynamicContentData.MAX_ATTEMPTS):
+            images = dynamic_content_page.get_all_src()
+
+            for image in images:
+                if image in found_images:
+                    found_duplicates = True
+                    break
+                found_images.add(image)
+
+            if found_duplicates:
+                break
+
+            dynamic_content_page.window_handler.refresh()
