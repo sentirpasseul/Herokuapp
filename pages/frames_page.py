@@ -32,3 +32,12 @@ class FramePage(BasePage):
 
     def menu_item_click(self) -> None:
         self.nested_frames_menu_item.click()
+
+    def is_menu_visible(self) -> bool:
+        return True if self.menu.wait_for_visible() else False
+
+    def is_parent_frame_text_visible(self) -> bool:
+        return True if self.nested_frames_page.parent_frame_text.wait_for_visible().is_displayed() else False
+
+    def is_child_frame_text_visible(self) -> bool:
+        return True if self.nested_frames_page.child_frame_text.wait_for_visible().is_displayed() else False

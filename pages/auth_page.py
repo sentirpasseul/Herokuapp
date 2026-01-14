@@ -14,6 +14,6 @@ class AuthPage(BasePage):
                                      locator='//p[contains(text(), "Congratulations! You must have the proper credentials.")]',
                                      description="Basic Auth Page -> Success auth message label")
 
-    def wait_for_success_message(self):
-        self.success_message.wait_for_visible()
+    def is_success_message_visible(self):
+        return True if self.success_message.wait_for_visible().is_displayed() else False
 
