@@ -11,8 +11,6 @@ class UserCard(BaseElement):
     LINK_PROFILE = "https://the-internet.herokuapp.com/users/{index}"
     TIMEOUT = 3
 
-
-
     def __init__(self, browser, index):
         super().__init__(browser)
         self.user_card_index_loc = self.UNIQUE_LOC + "[{index}]"

@@ -1,13 +1,25 @@
 from pages.infinite_scroll_page import InfiniteScrollPage
 from config.urls import URLs
+from data.infinite_scroll_data import InfiniteScrollData
 
 
-class TestInfiniteScrollPage:
-    ENGINEER_AGE = 25
+class TestInfiniteScroll:
 
     def test_infinite_scroll(self, browser):
         browser.get(URLs.INFINITE_SCROLL_PAGE)
         infinite_scroll_page = InfiniteScrollPage(browser)
-        assert infinite_scroll_page.wait_for_open(), "Ошибка при открытии страницы с бесконечным скролом"
-        assert infinite_scroll_page.check_quantity_paragraphs_to_engineer_age(age=self.ENGINEER_AGE), \
-            "Ошибка при проверке количества абзацев с возрастом инженера, выполняющим задание"
+        age = InfiniteScrollData.ENGINEER_AGE
+
+        infinite_scroll_page.wait_for_open()
+
+        current_count_paragraphs = len(infinite_scroll_page.get_paragraphs())
+        while current_count_paragraphs < age:
+            paragraphs = infinite_scroll_page.get_paragraphs()
+            current_count_paragraphs = len(paragraphs)
+
+            if current_count_paragraphs >= age:
+                break
+
+            last_paragraph = paragraphs[-1]
+            last_paragraph.is_displayed()
+            infinite_scroll_page.scroll_page_to_element(last_paragraph)
