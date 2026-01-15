@@ -26,5 +26,5 @@ class InfiniteScrollPage(BasePage):
                        )
             for i in range(len(elements))
         ]
-    def scroll_page_to_paragraph(self, element) -> None:
+    def scroll_page_to_paragraph(self) -> None:
         self.paragraph.scroll_to_element()
