@@ -21,10 +21,11 @@ class InfiniteScrollPage(BasePage):
         elements = self.paragraph.wait_for_all_visible()
         return [
             WebElement(browser=self.browser,
-                       locator=f"({self.PARAGRAPH_LOC})[{i+1}]",
-                       description=f"Paragraph {i+1}"
+                       locator=f"({self.PARAGRAPH_LOC})[{i + 1}]",
+                       description=f"Paragraph {i + 1}"
                        )
             for i in range(len(elements))
         ]
+
     def scroll_page_to_paragraph(self) -> None:
         self.paragraph.scroll_to_element()

@@ -14,8 +14,8 @@ class HoversPage(BasePage):
                                     locator=self.UNIQUE_LOC,
                                     description="Hovers Page -> Hovers label")
         self.user_card_collection = WebElement(browser=browser,
-                                    locator=UserCard.ANY_USER_CARD,
-                                    description="Hovers Page -> User Card web element")
+                                               locator=UserCard.ANY_USER_CARD,
+                                               description="Hovers Page -> User Card web element")
         self.driver = browser.driver
 
     @property

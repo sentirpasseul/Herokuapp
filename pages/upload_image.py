@@ -89,5 +89,3 @@ class UploadImagePage(BasePage):
 
     def is_mark_text_visible(self):
         return self.mark_text.is_displayed()
-
-

@@ -17,4 +17,3 @@ class AuthPage(BasePage):
 
     def is_success_message_visible(self):
         return self.success_message.is_displayed()
-

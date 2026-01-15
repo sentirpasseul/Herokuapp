@@ -2,6 +2,7 @@ from pages.auth_page import AuthPage
 from config.urls import URLs
 from data.auth_data import TestDataAuth
 
+
 class TestAuth:
 
     def test_auth(self, browser):

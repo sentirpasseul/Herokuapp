@@ -15,15 +15,11 @@ class WindowsPage(BasePage):
                                     locator=self.UNIQUE_LOC,
                                     description="Windows Page -> Windows page label")
         self.new_window_label = Label(browser=self.browser,
-                                     locator=self.NEW_WINDOW_TAB_LABEL,
-                                     description="Windows Page -> New window page label")
+                                      locator=self.NEW_WINDOW_TAB_LABEL,
+                                      description="Windows Page -> New window page label")
         self.link = Label(browser=self.browser,
-                         locator=self.NEW_WINDOW_LINK,
-                         description="Windows Page -> New window link")
+                          locator=self.NEW_WINDOW_LINK,
+                          description="Windows Page -> New window link")
 
     def click_link(self) -> None:
         self.link.click()
-
-
-
-

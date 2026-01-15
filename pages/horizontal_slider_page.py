@@ -39,4 +39,3 @@ class HorizontalSliderPage(BasePage):
 
     def set_value_to_horizontal_slider(self, value):
         self.slider.set_value_to_slider(value)
-

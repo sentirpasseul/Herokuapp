@@ -17,6 +17,3 @@ class TestFrames:
         assert frames_page.is_parent_frame_text_visible(), "Ошибка при проверке видимости родительского фрейма"
         frames_page.nested_frames_page.switch_to_child_frame()
         assert frames_page.nested_frames_page.child_frame_text.wait_for_visible(), "Ошибка при проверке видимости фрейма наследника"
-
-
-
