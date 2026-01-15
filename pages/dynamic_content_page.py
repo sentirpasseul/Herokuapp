@@ -1,7 +1,6 @@
 from pages.base_page import BasePage
 from elements.custom_elements.label import Label
 from elements.custom_elements.web_element import WebElement
-from elements.common.window_handler import WindowHandler
 
 
 class DynamicContentPage(BasePage):
@@ -13,10 +12,12 @@ class DynamicContentPage(BasePage):
         self.unique_element = Label(browser=browser, locator=self.UNIQUE_LOC,
                                     description="Dynamic Content Page -> Dynamic Content label")
         self.images = WebElement(browser=self.browser,
-                          locator=self.IMAGES_LOC,
-                          description=f"Images")
-        self.window_handler = WindowHandler(browser)
+                                 locator=self.IMAGES_LOC,
+                                 description=f"Images")
 
     def get_all_src(self):
         images = self.images.wait_for_all_visible()
         return [image.get_attribute("src") for image in images]
+
+    def refresh_page(self) -> None:
+        self.browser.refresh()

@@ -1,7 +1,6 @@
 from selenium.webdriver.remote.webdriver import WebDriver, WebDriverException
 from utils.logs.logger import Logger
 from selenium.common.exceptions import NoAlertPresentException
-from elements.base_element import BaseElement
 from selenium.webdriver import ActionChains
 
 
@@ -11,9 +10,8 @@ class Browser:
 
     def __init__(self, driver: WebDriver):
         self._driver = driver
-
-        self.main_handle = None
         self.alert = None
+        self.main_handle = None
         self.original_window = self._driver.current_window_handle
         self.actions = ActionChains(driver)
 
@@ -55,9 +53,12 @@ class Browser:
             self.alert = self._driver.switch_to.alert
             Logger.info(f"Switch to alert: {self.alert}")
             return self.alert
-        except NoAlertPresentException as err:
-            Logger.error(f"Failed to switch to alert: {err}")
-            return NoAlertPresentException
+        except NoAlertPresentException:
+            Logger.error("Failed to switch to alert: No alert present on page")
+            raise
+        except WebDriverException as error:
+            Logger.error(f"Webdriver error while switching to alert: {error}")
+            raise
 
     def get_alert_text(self):
         self.switch_to_alert()
@@ -68,10 +69,6 @@ class Browser:
     def confirm_alert(self):
         Logger.info(f"Confirm alert: {self.alert.text}")
         self.alert.accept()
-
-    def switch_to_frame(self, frame: BaseElement):
-        Logger.info(f"Switch to frame: {frame}")
-        self._driver.switch_to.frame(frame.wait_for_presence())
 
     def switch_to_window(self, window):
         Logger.info(f"Switch to window: {window}")
@@ -108,16 +105,4 @@ class Browser:
         Logger.info(f"Get title current page")
         return self._driver.title
 
-    def scroll_to_element(self, element):
-        self._driver.execute_script(
-            "arguments[0].scrollIntoView({block: 'center'})",
-            element
-        )
 
-    def click_button_with_js(self, selector: str) -> None:
-        script = f"document.querySelector('[onClick=\"{selector}\"]').click();"
-        self.execute_script(script)
-
-    def get_text_with_js(self, selector: str):
-        script = f"return document.getElementById('{selector}').innerText;"
-        return self.execute_script(script)

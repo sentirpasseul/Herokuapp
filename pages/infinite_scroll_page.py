@@ -1,8 +1,7 @@
 from pages.base_page import BasePage
-from selenium.common.exceptions import TimeoutException
 from elements.custom_elements.web_element import WebElement
 from elements.custom_elements.label import Label
-from utils.logs.logger import Logger
+from typing import List
 
 
 class InfiniteScrollPage(BasePage):
@@ -18,8 +17,14 @@ class InfiniteScrollPage(BasePage):
                                     locator=self.PARAGRAPH_LOC,
                                     description=f"Infinite Scroll Page -> Paragraph")
 
-    def get_paragraphs(self):
-        return self.paragraph.wait_for_all_visible()
-
-    def scroll_page_to_element(self, element) -> None:
-        self.browser.scroll_to_element(element)
+    def get_paragraphs(self) -> List[WebElement]:
+        elements = self.paragraph.wait_for_all_visible()
+        return [
+            WebElement(browser=self.browser,
+                       locator=f"({self.PARAGRAPH_LOC})[{i+1}]",
+                       description=f"Paragraph {i+1}"
+                       )
+            for i in range(len(elements))
+        ]
+    def scroll_page_to_paragraph(self, element) -> None:
+        self.paragraph.scroll_to_element()

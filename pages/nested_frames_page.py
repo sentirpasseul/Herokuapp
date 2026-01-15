@@ -29,6 +29,13 @@ class NestedFramesPage(BasePage):
         self.child_frame_text = Label(browser=self.browser,
                                       locator=self.CHILD_FRAME_LABEL,
                                       description="Nested Frames Page -> Child frame text")
+        self.frame = Frame(browser)
 
     def get_child_frame(self):
         pass
+
+    def switch_to_frame(self) -> None:
+        self.iframe.switch_to_frame()
+
+    def switch_to_child_frame(self) -> None:
+        self.iframe_child.switch_to_frame()

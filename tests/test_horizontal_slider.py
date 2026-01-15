@@ -12,14 +12,14 @@ class TestHorizontalSlider:
 
     def test_horizontal_slider(self, browser):
         browser.get(URLs.HORIZONTAL_SLIDER_PAGE)
-        horizontal_slider = HorizontalSliderPage(browser)
-        random_value = float(self.get_random_float_from_range(min_value=horizontal_slider.get_min_range(),
-                                                              max_value=horizontal_slider.get_max_range(),
-                                                              step=horizontal_slider.get_step_range()))
+        horizontal_slider_page = HorizontalSliderPage(browser)
+        random_value = float(self.get_random_float_from_range(min_value=horizontal_slider_page.get_min_range(),
+                                                              max_value=horizontal_slider_page.get_max_range(),
+                                                              step=horizontal_slider_page.get_step_range()))
 
-        horizontal_slider.wait_for_open()
-        horizontal_slider.slider.set_value_to_slider(random_value)
-        slider_counter = horizontal_slider.get_counter_text()
+        horizontal_slider_page.wait_for_open()
+        horizontal_slider_page.set_value_to_horizontal_slider(random_value)
+        slider_counter = horizontal_slider_page.get_counter_text()
         assert slider_counter == random_value, (f"Ошибка при проверке значения слайдера\n"
                                                 f"Actual: {slider_counter}\n"
                                                 f"Expected: {random_value}\n")

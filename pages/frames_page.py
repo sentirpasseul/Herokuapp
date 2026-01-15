@@ -7,9 +7,9 @@ from elements.custom_elements.web_element import WebElement
 
 class FramePage(BasePage):
     UNIQUE_LOC = "//div[@id='framesWrapper']//*[contains(text(), 'Frames')]"
-    MENU_ELEMENT_ITEM = "//div[@class= 'element-list collapse show']//*[contains(text(), 'Browser Windows')]"
+    MENU_ELEMENT_ITEM = "//div[contains(@class,'element-list collapse show')]//*[contains(text(), 'Browser Windows')]"
     MENU = "//*[text()='Browser Windows']/ancestor::div[@class='element-group']//span[@class='group-header']"
-    MENU_ITEM = "//div[@class= 'element-group']//*[contains(text(), 'Nested Frames')]"
+    MENU_ITEM = "//div[contains(@class,'element-group')]//*[contains(text(), 'Nested Frames')]"
 
     def __init__(self, browser):
         super().__init__(browser=browser)
@@ -34,10 +34,10 @@ class FramePage(BasePage):
         self.nested_frames_menu_item.click()
 
     def is_menu_visible(self) -> bool:
-        return True if self.menu.wait_for_visible() else False
+        return self.menu.is_displayed()
 
     def is_parent_frame_text_visible(self) -> bool:
-        return True if self.nested_frames_page.parent_frame_text.wait_for_visible().is_displayed() else False
+        return self.nested_frames_page.parent_frame_text.is_displayed()
 
     def is_child_frame_text_visible(self) -> bool:
-        return True if self.nested_frames_page.child_frame_text.wait_for_visible().is_displayed() else False
+        return self.nested_frames_page.child_frame_text.is_displayed()

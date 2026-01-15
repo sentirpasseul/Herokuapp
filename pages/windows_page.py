@@ -24,7 +24,6 @@ class WindowsPage(BasePage):
     def click_link(self) -> None:
         self.link.click()
 
-    def get_new_window_title(self):
-        return self.browser.get_title()
+
 
 

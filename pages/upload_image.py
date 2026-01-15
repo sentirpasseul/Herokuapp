@@ -69,25 +69,25 @@ class UploadImagePage(BasePage):
         self.image_loader.send_keys(image_path)
 
     def is_image_loader_visible(self) -> bool:
-        return True if self.image_loader.wait_for_visible().is_displayed() else False
+        return self.image_loader.is_displayed()
 
     def image_loader_clear_values(self) -> None:
         self.image_loader.clear()
 
     def is_file_uploaded_successful_text_visible(self) -> bool:
-        return True if self.file_uploaded_successful_text.wait_for_visible().is_displayed() else False
+        return self.file_uploaded_successful_text.is_displayed()
 
     def is_uploaded_file_name_visible(self) -> bool:
-        return True if self.uploaded_file_name.wait_for_visible().is_displayed() else False
+        return self.uploaded_file_name.is_displayed()
 
     def upload_image_with_finder(self, image_name) -> None:
         image_path = self.get_path_of_image(image_name)
         self.pyautogui.upload_file(image_path)
 
     def is_uploaded_file_name_in_uploaded_area_visible(self) -> bool:
-        return True if self.uploaded_image_name_in_uploaded_area.wait_for_visible().is_displayed() else False
+        return self.uploaded_image_name_in_uploaded_area.is_displayed()
 
     def is_mark_text_visible(self):
-        return True if self.mark_text.wait_for_visible().is_displayed() else False
+        return self.mark_text.is_displayed()
 
 

@@ -11,6 +11,7 @@ class Input(BaseElement):
         self.clear()
         try:
             element.send_keys(keys)
+            Logger.info(f"{element} send keys: {keys}")
         except WebDriverException as err:
             Logger.error(f"{self}: {err}")
             raise
@@ -18,3 +19,4 @@ class Input(BaseElement):
     def clear(self):
         element = self.wait_for_visible()
         element.clear()
+        Logger.info(f"{self} clear values")

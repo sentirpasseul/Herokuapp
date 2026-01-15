@@ -16,5 +16,5 @@ class AuthPage(BasePage):
                                      description="Basic Auth Page -> Success auth message label")
 
     def is_success_message_visible(self):
-        return True if self.success_message.wait_for_visible().is_displayed() else False
+        return self.success_message.is_displayed()
 

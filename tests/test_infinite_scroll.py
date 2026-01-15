@@ -22,4 +22,4 @@ class TestInfiniteScroll:
 
             last_paragraph = paragraphs[-1]
             last_paragraph.is_displayed()
-            infinite_scroll_page.scroll_page_to_element(last_paragraph)
+            last_paragraph.scroll_to_element(block='end')

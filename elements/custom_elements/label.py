@@ -5,7 +5,6 @@ class Label(BaseElement):
 
     def with_text(self, text):
         by, locator_value = self.locator
-        new_locator_value = locator_value.format(text=text)
         return Label(browser=self.browser,
-                     locator=(by, new_locator_value),
+                     locator=(by, locator_value),
                      description=f"{self.description} with text {text}")

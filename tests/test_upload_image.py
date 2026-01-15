@@ -6,12 +6,9 @@ import pytest
 
 class TestUploadImage:
 
-    @pytest.fixture(autouse=True)
-    def setup(self, browser):
+    def test_upload_image(self, browser):
         browser.get(URLs.UPLOAD_IMAGE_PAGE)
         self.upload_image_page = UploadImagePage(browser)
-
-    def test_upload_image(self):
         self.upload_image_page.wait_for_open()
 
         assert self.upload_image_page.is_image_loader_visible(), \
@@ -24,7 +21,9 @@ class TestUploadImage:
         assert self.upload_image_page.is_uploaded_file_name_visible(), \
             "Ошибка при проверке видимости имени загруженного файла"
 
-    def test_upload_image_with_dialog_window(self):
+    def test_upload_image_with_dialog_window(self, browser):
+        browser.get(URLs.UPLOAD_IMAGE_PAGE)
+        self.upload_image_page = UploadImagePage(browser)
         self.upload_image_page.wait_for_open()
 
         self.upload_image_page.click_upload_image_area()
@@ -33,5 +32,3 @@ class TestUploadImage:
             "Ошибка при проверке видимости имени загруженного файла в поле загрузки файлов"
         assert self.upload_image_page.is_mark_text_visible(), \
             'Ошибка при проверке видимости "✔" '
-
-

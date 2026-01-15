@@ -35,5 +35,8 @@ class HorizontalSliderPage(BasePage):
         return float(self.slider.get_attribute("step"))
 
     def get_counter_text(self) -> float:
-        return float(self.counter.text)
+        return float(self.counter.get_text())
+
+    def set_value_to_horizontal_slider(self, value):
+        self.slider.set_value_to_slider(value)
 

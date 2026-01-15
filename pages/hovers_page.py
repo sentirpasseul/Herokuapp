@@ -13,12 +13,15 @@ class HoversPage(BasePage):
         self.unique_element = Label(browser=browser,
                                     locator=self.UNIQUE_LOC,
                                     description="Hovers Page -> Hovers label")
-        self.user_card = WebElement(browser=browser,
-                                    locator=UserCard.UNIQUE_LOC,
+        self.user_card_collection = WebElement(browser=browser,
+                                    locator=UserCard.ANY_USER_CARD,
                                     description="Hovers Page -> User Card web element")
         self.driver = browser.driver
 
     @property
     def cards(self) -> List[UserCard]:
-        user_card_elements = self.user_card.wait_for_all_visible()
+        user_card_elements = self.user_card_collection.wait_for_all_visible()
         return [UserCard(self.browser, i + 1) for i in range(len(user_card_elements))]
+
+    def get_current_url(self):
+        return self.browser.current_url

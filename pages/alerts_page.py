@@ -6,15 +6,9 @@ from elements.custom_elements.button import Button
 
 class AlertsPage(BasePage):
     UNIQUE_LOC = "//div[contains(@class,'example')]//*[contains(text(), 'JavaScript Alerts')]"
-    ALERT_RESULT_TEXT = "//*[@*='result']"
-
     ALERT_BUTTON = "//button[@onclick = 'jsAlert()']"
     CONFIRM_BUTTON = "//button[@onclick = 'jsConfirm()']"
     PROMPT_BUTTON = "//button[@onclick = 'jsPrompt()']"
-
-    BUTTON_ALERT_JS = "jsAlert()"
-    BUTTON_CONFIRM_JS = "jsConfirm()"
-    BUTTON_PROMPT_JS = "jsPrompt()"
 
     RESULT_TEXT_ID = 'result'
 
@@ -24,7 +18,7 @@ class AlertsPage(BasePage):
                                     locator=self.UNIQUE_LOC,
                                     description="JavaScript Alerts Page -> JavaScript Alerts label")
         self.result_text = Label(browser=browser,
-                                 locator=self.ALERT_RESULT_TEXT,
+                                 locator=self.RESULT_TEXT_ID,
                                  description="JavaScript Alerts Page -> Result label")
         self.alert_button = Button(browser=browser,
                                    locator=self.ALERT_BUTTON,
@@ -40,6 +34,15 @@ class AlertsPage(BasePage):
     def get_result_text(self):
         return self.result_text.get_text()
 
+    def send_keys_to_alert(self, keys):
+        return self.browser.send_keys_alert(keys)
+
+    def confirm_alert(self):
+        self.browser.confirm_alert()
+
+    def get_alert_text(self):
+        return self.browser.get_alert_text()
+
     def get_random_string(self, string_length: int):
         return self.random_factory.get_random_string(string_length)
 
@@ -53,13 +56,13 @@ class AlertsPage(BasePage):
         self.prompt_button.click()
 
     def click_alert_button_with_js(self) -> None:
-        self.browser.click_button_with_js(self.BUTTON_ALERT_JS)
+        self.alert_button.js_click()
 
     def click_confirm_button_with_js(self) -> None:
-        self.browser.click_button_with_js(self.BUTTON_CONFIRM_JS)
+        self.confirm_button.js_click()
 
     def click_prompt_button_with_js(self) -> None:
-        self.browser.click_button_with_js(self.BUTTON_PROMPT_JS)
+        self.prompt_button.js_click()
 
     def get_result_text_with_js(self):
-        return self.browser.get_text_with_js(self.RESULT_TEXT_ID)
+        return self.result_text.get_text_with_js()

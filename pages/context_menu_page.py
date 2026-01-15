@@ -1,7 +1,4 @@
 from pages.base_page import BasePage
-from utils.logs.logger import Logger
-from pages.alerts_page import AlertsPage
-from selenium.common.exceptions import TimeoutException
 from elements.custom_elements.label import Label
 from elements.custom_elements.web_element import WebElement
 
@@ -21,3 +18,9 @@ class ContextMenuPage(BasePage):
 
     def open_context_menu_in_area(self) -> None:
         self.context_area.open_context_menu()
+
+    def get_alert_text(self):
+        return self.browser.get_alert_text()
+
+    def confirm_alert(self):
+        self.browser.confirm_alert()
