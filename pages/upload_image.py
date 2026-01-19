@@ -4,9 +4,7 @@ from pages.base_page import BasePage
 from elements.custom_elements.label import Label
 from elements.custom_elements.input import Input
 from elements.custom_elements.web_element import WebElement
-from selenium.common.exceptions import TimeoutException
 from utils.pyautogui.pyautogui_utilities import PyAutoGuiUtilities
-import os
 
 
 class UploadImagePage(BasePage):
@@ -29,8 +27,6 @@ class UploadImagePage(BasePage):
         self.image_loader = Input(browser=self.browser,
                                   locator=self.INPUT_LOC,
                                   description="Upload Image Page -> Loader Image input")
-        self.image_name = None
-        self.image_path = None
         self.pyautogui = PyAutoGuiUtilities()
         self.submit_button = WebElement(browser=self.browser,
                                         locator=self.BUTTON_LOC,
@@ -51,41 +47,32 @@ class UploadImagePage(BasePage):
                                                           locator=self.UPLOADED_IMAGE_NAME_IN_UPLOADED_AREA,
                                                           description="Upload Image Page -> Uploaded File Name In Uploaded Area label")
 
-    @staticmethod
-    def get_path_of_image(image_name: str):
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(current_dir, "..", "data", image_name)
-        final_path = os.path.abspath(file_path)
-        return final_path
-
     def click_submit_button(self) -> None:
         self.submit_button.click()
 
     def click_upload_image_area(self) -> None:
         self.upload_image_area.click()
 
-    def upload_image(self, image_name) -> None:
-        image_path = self.get_path_of_image(image_name)
+    def upload_image(self, image_path) -> None:
         self.image_loader.send_keys(image_path)
 
     def is_image_loader_visible(self) -> bool:
-        return self.image_loader.is_displayed()
+        return self.image_loader.is_exists()
 
-    def image_loader_clear_values(self) -> None:
+    def clear_values_to_image_loader(self) -> None:
         self.image_loader.clear()
 
     def is_file_uploaded_successful_text_visible(self) -> bool:
-        return self.file_uploaded_successful_text.is_displayed()
+        return self.file_uploaded_successful_text.is_exists()
 
     def is_uploaded_file_name_visible(self) -> bool:
-        return self.uploaded_file_name.is_displayed()
+        return self.uploaded_file_name.is_exists()
 
-    def upload_image_with_finder(self, image_name) -> None:
-        image_path = self.get_path_of_image(image_name)
+    def upload_image_with_finder(self, image_path) -> None:
         self.pyautogui.upload_file(image_path)
 
     def is_uploaded_file_name_in_uploaded_area_visible(self) -> bool:
-        return self.uploaded_image_name_in_uploaded_area.is_displayed()
+        return self.uploaded_image_name_in_uploaded_area.is_exists()
 
-    def is_mark_text_visible(self):
-        return self.mark_text.is_displayed()
+    def is_mark_text_visible(self) -> bool:
+        return self.mark_text.is_exists()

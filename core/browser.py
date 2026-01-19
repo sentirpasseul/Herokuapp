@@ -1,4 +1,6 @@
 from selenium.webdriver.remote.webdriver import WebDriver, WebDriverException
+
+from elements.custom_elements.web_element import WebElement
 from utils.logs.logger import Logger
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver import ActionChains
@@ -45,8 +47,12 @@ class Browser:
             raise
 
     def refresh(self):
-        Logger.info("Page refresh")
-        self._driver.refresh()
+        try:
+            Logger.info("Page refresh")
+            self._driver.refresh()
+        except:
+            Logger.error("Failed to refresh page ")
+            raise
 
     def switch_to_alert(self):
         try:
@@ -56,53 +62,94 @@ class Browser:
         except NoAlertPresentException:
             Logger.error("Failed to switch to alert: No alert present on page")
             raise
-        except WebDriverException as error:
-            Logger.error(f"Webdriver error while switching to alert: {error}")
-            raise
 
     def get_alert_text(self):
-        self.switch_to_alert()
-        text = self.alert.text
-        Logger.info(f"Get alert text: {text}")
-        return text
+        try:
+            self.switch_to_alert()
+            text = self.alert.text
+            Logger.info(f"Get alert text: {text}")
+            return text
+        except:
+            Logger.error("Failed to get alert text")
+            raise
 
     def confirm_alert(self):
-        Logger.info(f"Confirm alert: {self.alert.text}")
-        self.alert.accept()
+        try:
+            Logger.info(f"Confirm alert: {self.alert.text}")
+            self.alert.accept()
+        except:
+            Logger.error(f"Failed to confirm alert: {self.alert}")
+            raise
 
     def switch_to_window(self, window):
-        Logger.info(f"Switch to window: {window}")
-        self._driver.switch_to.window(window)
+        try:
+            Logger.info(f"Switch to window: {window}")
+            self._driver.switch_to.window(window)
+        except:
+            Logger.error(f"Failed to switch to window: {window}")
+            raise
 
     def send_keys_alert(self, value: str):
-        Logger.info(f"Send {value} successful")
-        self._driver.switch_to.alert.send_keys(value)
+        try:
+            Logger.info(f"Send {value} to alert was successful")
+            self._driver.switch_to.alert.send_keys(value)
+        except:
+            Logger.error(f"Failed to send {value} to alert")
+            raise
 
     def execute_script(self, script, *args):
-        Logger.info(f"Execute script: {script}")
-        return self._driver.execute_script(script, *args)
+        try:
+            Logger.info(f"Execute script: {script}")
+            return self._driver.execute_script(script, *args)
+        except:
+            Logger.error(f"Failed to execute script: {script}")
+            raise
 
     def switch_to_new_tab(self):
         if not hasattr(self, 'original_window') or self.original_window is None:
             self.original_window = self._driver.current_window_handle
 
-        all_handles = self._driver.window_handles
-        if len(all_handles) > 1:
+        try:
+            all_handles = self._driver.window_handles
             self._driver.switch_to.window(all_handles[-1])
-            Logger.info("Switch to new tab")
-        else:
-            raise Exception("No new tab found to switch to")
+            Logger.info(f"Switch to new tab: {self.driver.current_window_handle}")
+        except:
+            Logger.error("Failed to switch to new tab")
+            raise
 
     def switch_to_original_window(self):
         Logger.info("Switch to original window")
         self.switch_to_window(self.original_window)
 
     def go_back(self):
-        Logger.info(f"Back to previous window")
-        self._driver.back()
+        try:
+            Logger.info(f"Back to previous window")
+            self._driver.back()
+        except:
+            Logger.error("failed to go back to previous window")
+            raise
 
     def get_title(self):
-        Logger.info(f"Get title current page")
-        return self._driver.title
+        try:
+            Logger.info(f"Get title current page")
+            return self._driver.title
+        except:
+            Logger.error("Failed to get title current page")
+            raise
 
+    @staticmethod
+    def switch_to_frame(frame: WebElement):
+        Logger.info(f"Switch to frame: {frame}")
+        frame.wait_for_frame_and_switch()
 
+    def close_extra_tabs(self) -> None:
+        try:
+            Logger.info("Close extra tabs")
+            handles = self.driver.window_handles
+            for handle in handles[1:]:
+                self.driver.switch_to.window(handle)
+                self.driver.close()
+            self.switch_to_original_window()
+        except:
+            Logger.error("Failed to close extra tabs")
+            raise

@@ -25,17 +25,17 @@ class HorizontalSliderPage(BasePage):
                              locator=self.COUNTER,
                              description="Horizontal Slider Page -> Counter label")
 
-    def get_min_range(self) -> float:
-        return float(self.slider.get_attribute("min"))
-
-    def get_max_range(self) -> float:
-        return float(self.slider.get_attribute("max"))
-
-    def get_step_range(self) -> float:
-        return float(self.slider.get_attribute("step"))
-
-    def get_counter_text(self) -> float:
-        return float(self.counter.get_text())
-
     def set_value_to_horizontal_slider(self, value):
         self.slider.set_value_to_slider(value)
+
+    def get_min_range_slider(self):
+        return self.slider.get_min_range()
+
+    def get_max_range_slider(self):
+        return self.slider.get_max_range()
+
+    def get_step_rang_slider(self):
+        return self.slider.get_step_range()
+
+    def get_counter_text(self):
+        return float(self.counter.get_text())

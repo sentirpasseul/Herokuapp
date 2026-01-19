@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 from elements.custom_elements.web_element import WebElement
+from elements.custom_elements.multi_web_element import MultiWebElement
 from elements.custom_elements.label import Label
 from typing import List
 
@@ -13,12 +14,12 @@ class InfiniteScrollPage(BasePage):
         self.unique_element = Label(browser=browser,
                                     locator=self.UNIQUE_LOC,
                                     description="Infinite Scroll Page -> Infinite Scroll label")
-        self.paragraph = WebElement(browser=self.browser,
-                                    locator=self.PARAGRAPH_LOC,
-                                    description=f"Infinite Scroll Page -> Paragraph")
+        self.paragraphs = MultiWebElement(browser=self.browser,
+                                     locator=self.PARAGRAPH_LOC,
+                                     description=f"Infinite Scroll Page -> Paragraph")
 
-    def get_paragraphs(self) -> List[WebElement]:
-        elements = self.paragraph.wait_for_all_visible()
+    def get_paragraphs(self) -> MultiWebElement:
+        elements = self.paragraphs.wait_for_all_visible()
         return [
             WebElement(browser=self.browser,
                        locator=f"({self.PARAGRAPH_LOC})[{i + 1}]",
@@ -28,4 +29,4 @@ class InfiniteScrollPage(BasePage):
         ]
 
     def scroll_page_to_paragraph(self) -> None:
-        self.paragraph.scroll_to_element()
+        self.paragraphs.scroll_to_element()

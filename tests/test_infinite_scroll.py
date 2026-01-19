@@ -21,5 +21,5 @@ class TestInfiniteScroll:
                 break
 
             last_paragraph = paragraphs[-1]
-            last_paragraph.is_displayed()
+            last_paragraph.is_exists()
             last_paragraph.scroll_to_element(block='end')

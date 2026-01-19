@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from elements.custom_elements.label import Label
-from elements.custom_elements.web_element import WebElement
+from elements.custom_elements.multi_web_element import MultiWebElement
 from elements.custom_elements.user_card import UserCard
 from typing import List
 
@@ -13,15 +13,23 @@ class HoversPage(BasePage):
         self.unique_element = Label(browser=browser,
                                     locator=self.UNIQUE_LOC,
                                     description="Hovers Page -> Hovers label")
-        self.user_card_collection = WebElement(browser=browser,
-                                               locator=UserCard.ANY_USER_CARD,
-                                               description="Hovers Page -> User Card web element")
-        self.driver = browser.driver
+        self.user_card_collection = MultiWebElement(browser=browser,
+                                                    locator=UserCard.ANY_USER_CARD,
+                                                    description="Hovers Page -> User Card web element")
 
     @property
-    def cards(self) -> List[UserCard]:
+    def cards(self):
         user_card_elements = self.user_card_collection.wait_for_all_visible()
         return [UserCard(self.browser, i + 1) for i in range(len(user_card_elements))]
 
-    def get_current_url(self):
-        return self.browser.current_url
+    def hover_user_card(self, index: int) -> None:
+        card = UserCard(self.browser, index)
+        card.move_mouse_to_element()
+
+    def get_username_of_user_card(self, index):
+        card = UserCard(self.browser, index)
+        return card.username.get_text()
+
+    def click_link_profile(self, index: int) -> None:
+        card = UserCard(self.browser, index)
+        card.link_profile.click()

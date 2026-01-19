@@ -7,7 +7,7 @@ from elements.custom_elements.label import Label
 class WindowsPage(BasePage):
     UNIQUE_LOC = "//div[contains(@class, 'example')]//*[contains(text(), 'Opening a new window')]"
     NEW_WINDOW_LINK = "//a[contains(@href, '/windows/new')]"
-    NEW_WINDOW_TAB_LABEL = "//div[contains(@class, 'example')]//*[contains(text(), '{text}')]"
+    NEW_WINDOW_TAB_LABEL = "//div[contains(@class, 'example')]//*[contains(text(), 'New Window')]"
 
     def __init__(self, browser):
         super().__init__(browser=browser)
@@ -23,3 +23,6 @@ class WindowsPage(BasePage):
 
     def click_link(self) -> None:
         self.link.click()
+
+    def get_new_window_text(self):
+        return self.new_window_label.get_text()

@@ -9,6 +9,7 @@ class URLs(StrEnum):
     CONTEXT_MENU_PAGE = "http://the-internet.herokuapp.com/context_menu"
     HORIZONTAL_SLIDER_PAGE = "http://the-internet.herokuapp.com/horizontal_slider"
     HOVERS_PAGE = "http://the-internet.herokuapp.com/hovers"
+    LINK_PROFILE = "https://the-internet.herokuapp.com/users/{index}"
     WINDOWS_PAGE = "http://the-internet.herokuapp.com/windows"
     FRAMES_PAGE = "https://demoqa.com/frames"
     DYNAMIC_CONTENT_PAGE = "http://the-internet.herokuapp.com/dynamic_content"

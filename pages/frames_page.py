@@ -30,14 +30,14 @@ class FramePage(BasePage):
     def click_menu(self) -> None:
         self.menu.click()
 
-    def menu_item_click(self) -> None:
+    def click_menu_item(self) -> None:
         self.nested_frames_menu_item.click()
 
     def is_menu_visible(self) -> bool:
-        return self.menu.is_displayed()
+        return self.menu.is_exists()
 
     def is_parent_frame_text_visible(self) -> bool:
-        return self.nested_frames_page.parent_frame_text.is_displayed()
+        return self.nested_frames_page.parent_frame_text.is_exists()
 
     def is_child_frame_text_visible(self) -> bool:
-        return self.nested_frames_page.child_frame_text.is_displayed()
+        return self.nested_frames_page.child_frame_text.is_exists()

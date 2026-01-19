@@ -1,5 +1,4 @@
 from pages.frames_page import FramePage
-from elements.custom_elements.frame import Frame
 from config.urls import URLs
 
 
@@ -12,8 +11,9 @@ class TestFrames:
         if not frames_page.is_menu_visible():
             frames_page.click_menu()
 
-        frames_page.menu_item_click()
-        frames_page.nested_frames_page.switch_to_frame()
+        frames_page.click_menu_item()
+        browser.switch_to_frame(frames_page.nested_frames_page.iframe)
         assert frames_page.is_parent_frame_text_visible(), "Ошибка при проверке видимости родительского фрейма"
-        frames_page.nested_frames_page.switch_to_child_frame()
-        assert frames_page.nested_frames_page.child_frame_text.wait_for_visible(), "Ошибка при проверке видимости фрейма наследника"
+        browser.switch_to_frame(frames_page.nested_frames_page.iframe_child)
+        assert frames_page.nested_frames_page.child_frame_text.wait_for_visible(), \
+            "Ошибка при проверке видимости фрейма наследника"
