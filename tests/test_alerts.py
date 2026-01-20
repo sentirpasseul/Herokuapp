@@ -15,29 +15,29 @@ def alerts_test_context(browser):
 
 class TestAlerts:
 
-    def test_alert_manual(self, alerts_test_context):
+    def test_alert_manual(self, browser, alerts_test_context):
         alerts_page = alerts_test_context
         alerts_page.click_alert_button()
-        actual_alert_text = alerts_page.get_alert_text()
+        actual_alert_text = browser.get_alert_text()
         assert actual_alert_text == TestAlertsData.ALERT_TEXT, ("Ошибка при проверке текста алерта \n"
                                                                 f"Actual: {actual_alert_text} \n"
                                                                 f"Expected: {TestAlertsData.ALERT_TEXT}")
-        alerts_page.confirm_alert()
+        browser.confirm_alert()
         actual_result_text = alerts_page.get_result_text()
         assert actual_result_text == TestAlertsData.ALERT_RESULT_TEXT, \
             ("Ошибка при проверке результата текста алерта \n"
              f"Actual: {actual_result_text} \n"
              f"Expected: {TestAlertsData.ALERT_RESULT_TEXT}")
 
-    def test_confirm_manual(self, alerts_test_context):
+    def test_confirm_manual(self, browser, alerts_test_context):
         alerts_page = alerts_test_context
         alerts_page.click_confirm_button()
-        actual_alert_text = alerts_page.get_alert_text()
+        actual_alert_text = browser.get_alert_text()
         assert actual_alert_text == TestAlertsData.CONFIRM_TEXT, \
             ("Ошибка при проверке текста алерта типа Confirm \n"
              f"Actual: {actual_alert_text} \n"
              f"Expected: {TestAlertsData.CONFIRM_TEXT}")
-        alerts_page.confirm_alert()
+        browser.confirm_alert()
         actual_result_text = alerts_page.get_result_text()
         assert actual_result_text == TestAlertsData.CONFIRM_RESULT_TEXT, \
             ("Ошибка при проверке результата алерта типа Confirm \n"
@@ -47,44 +47,44 @@ class TestAlerts:
     def test_prompt_manual(self, browser, alerts_test_context):
         alerts_page = alerts_test_context
         alerts_page.click_prompt_button()
-        random_string = self.get_random_string(TestAlertsData.STRING_LENGTH)
-        actual_alert_text = alerts_page.get_alert_text()
+        random_string = RandomFactory.get_random_string(TestAlertsData.STRING_LENGTH)
+        actual_alert_text = browser.get_alert_text()
         assert actual_alert_text == TestAlertsData.PROMPT_TEXT, \
             ("Ошибка при проверке текста алерта типа Prompt \n"
              f"Actual: {actual_alert_text} \n"
              f"Expected: {TestAlertsData.PROMPT_TEXT}")
         browser.send_keys_alert(random_string)
-        alerts_page.confirm_alert()
+        browser.confirm_alert()
         actual_result_text = alerts_page.get_result_text()
         assert actual_result_text == TestAlertsData.PROMPT_RESULT_TEXT + random_string, \
             ("Ошибка при проверке результата алерта типа Prompt \n"
              f"Actual: {actual_alert_text} \n"
              f"Expected: {TestAlertsData.PROMPT_RESULT_TEXT + random_string}")
 
-    def test_alert_with_js(self, alerts_test_context):
+    def test_alert_with_js(self, browser, alerts_test_context):
         alerts_page = alerts_test_context
         alerts_page.click_alert_button_with_js()
-        actual_alert_text = alerts_page.get_alert_text()
+        actual_alert_text = browser.get_alert_text()
         assert actual_alert_text == TestAlertsData.ALERT_TEXT, \
             ("Ошибка при проверке текста алерта \n"
              f"Actual: {actual_alert_text} \n"
              f"Expected: {TestAlertsData.ALERT_TEXT}")
-        alerts_page.confirm_alert()
+        browser.confirm_alert()
         actual_result_text = alerts_page.get_result_text_with_js()
         assert actual_result_text == TestAlertsData.ALERT_RESULT_TEXT, \
             ("Ошибка при проверке результата текста алерта \n"
              f"Actual: {actual_result_text} \n"
              f"Expected: {TestAlertsData.ALERT_RESULT_TEXT}")
 
-    def test_confirm_with_js(self, alerts_test_context):
+    def test_confirm_with_js(self, browser, alerts_test_context):
         alerts_page = alerts_test_context
         alerts_page.click_confirm_button_with_js()
-        actual_alert_text = alerts_page.get_alert_text()
+        actual_alert_text = browser.get_alert_text()
         assert actual_alert_text == TestAlertsData.CONFIRM_TEXT, \
             ("Ошибка при проверке текста алерта типа Confirm \n"
              f"Actual: {actual_alert_text} \n"
              f"Expected: {TestAlertsData.CONFIRM_TEXT}")
-        alerts_page.confirm_alert()
+        browser.confirm_alert()
         actual_result_text = alerts_page.get_result_text_with_js()
         assert actual_result_text == TestAlertsData.CONFIRM_RESULT_TEXT, \
             ("Ошибка при проверке результата алерта типа Confirm \n"
@@ -94,20 +94,16 @@ class TestAlerts:
     def test_prompt_with_js(self, browser, alerts_test_context):
         alerts_page = alerts_test_context
         alerts_page.click_prompt_button_with_js()
-        random_string = self.get_random_string(TestAlertsData.STRING_LENGTH)
-        actual_alert_text = alerts_page.get_alert_text()
+        random_string = RandomFactory.get_random_string(TestAlertsData.STRING_LENGTH)
+        actual_alert_text = browser.get_alert_text()
         assert actual_alert_text == TestAlertsData.PROMPT_TEXT, \
             ("Ошибка при проверке текста алерта типа Prompt \n"
              f"Actual: {actual_alert_text} \n"
              f"Expected: {TestAlertsData.PROMPT_TEXT}")
         browser.send_keys_alert(random_string)
-        alerts_page.confirm_alert()
+        browser.confirm_alert()
         actual_result_text = alerts_page.get_result_text_with_js()
         assert actual_result_text == TestAlertsData.PROMPT_RESULT_TEXT + random_string, \
             ("Ошибка при проверке результата алерта типа Prompt \n"
              f"Actual: {actual_result_text} \n"
              f"Expected: {TestAlertsData.PROMPT_RESULT_TEXT + random_string}")
-
-    @staticmethod
-    def get_random_string(string_length: int):
-        return RandomFactory.get_random_string(string_length)

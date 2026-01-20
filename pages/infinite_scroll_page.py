@@ -2,7 +2,6 @@ from pages.base_page import BasePage
 from elements.custom_elements.web_element import WebElement
 from elements.custom_elements.multi_web_element import MultiWebElement
 from elements.custom_elements.label import Label
-from typing import List
 
 
 class InfiniteScrollPage(BasePage):
@@ -15,18 +14,22 @@ class InfiniteScrollPage(BasePage):
                                     locator=self.UNIQUE_LOC,
                                     description="Infinite Scroll Page -> Infinite Scroll label")
         self.paragraphs = MultiWebElement(browser=self.browser,
-                                     locator=self.PARAGRAPH_LOC,
-                                     description=f"Infinite Scroll Page -> Paragraph")
+                                          locator=self.PARAGRAPH_LOC,
+                                          description="Infinite Scroll Page -> Paragraphs")
 
-    def get_paragraphs(self) -> MultiWebElement:
-        elements = self.paragraphs.wait_for_all_visible()
-        return [
-            WebElement(browser=self.browser,
-                       locator=f"({self.PARAGRAPH_LOC})[{i + 1}]",
-                       description=f"Paragraph {i + 1}"
-                       )
-            for i in range(len(elements))
-        ]
+    def get_paragraphs_count(self):
+        return len(self.paragraphs.wait_for_all_visible())
 
-    def scroll_page_to_paragraph(self) -> None:
-        self.paragraphs.scroll_to_element()
+    def scroll_to_paragraph_by_index(self, index) -> None:
+        paragraph = WebElement(browser=self.browser,
+                               locator=f"({self.PARAGRAPH_LOC})[{index}]",
+                               description=f"Paragraph {index}")
+        paragraph.scroll_to_element()
+
+    def is_paragraph_exists(self, index):
+        paragraph = WebElement(
+            browser=self.browser,
+            locator=f"({self.PARAGRAPH_LOC})[{index}]",
+            description=f"Check existence of paragraph {index}"
+        )
+        return paragraph.is_exists()

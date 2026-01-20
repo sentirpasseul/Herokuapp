@@ -18,9 +18,3 @@ class ContextMenuPage(BasePage):
 
     def open_context_menu_in_area(self) -> None:
         self.context_area.open_context_menu()
-
-    def get_alert_text(self):
-        return self.browser.get_alert_text()
-
-    def confirm_alert(self):
-        self.browser.confirm_alert()

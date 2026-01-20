@@ -27,3 +27,9 @@ class NestedFramesPage(BasePage):
         self.child_frame_text = Label(browser=self.browser,
                                       locator=self.CHILD_FRAME_LABEL,
                                       description="Nested Frames Page -> Child frame text")
+
+    def is_parent_frame_text_exists(self):
+        return self.parent_frame_text.is_exists()
+
+    def is_child_frame_text_exists(self):
+        return self.child_frame_text.is_exists()

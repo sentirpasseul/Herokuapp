@@ -26,10 +26,10 @@ class HoversPage(BasePage):
         card = UserCard(self.browser, index)
         card.move_mouse_to_element()
 
-    def get_username_of_user_card(self, index):
+    def get_username_of_user_card(self, index: int):
         card = UserCard(self.browser, index)
-        return card.username.get_text()
+        return card.get_username_text()
 
-    def click_link_profile(self, index: int) -> None:
+    def click_link_profile_of_user_card(self, index: int) -> None:
         card = UserCard(self.browser, index)
-        card.link_profile.click()
+        card.click_link_profile()

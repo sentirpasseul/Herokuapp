@@ -23,4 +23,4 @@ class TestDynamicContent:
             if found_duplicates:
                 break
 
-            browser.refresh_page()
+            browser.refresh()

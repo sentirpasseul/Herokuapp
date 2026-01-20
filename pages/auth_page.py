@@ -15,5 +15,5 @@ class AuthPage(BasePage):
                                      locator=self.SUCCESS_MESSAGE,
                                      description="Basic Auth Page -> Success auth message label")
 
-    def is_success_message_visible(self):
+    def is_success_message_exists(self):
         return self.success_message.is_exists()

@@ -19,3 +19,9 @@ class UserCard(WebElement):
         self.link_profile = Label(browser=self.browser,
                                   locator=self.LINK_PROFILE_ELEMENT.format(index=index),
                                   description=f"User Card [{index}] -> Link Profile label")
+
+    def click_link_profile(self) -> None:
+        self.link_profile.click()
+
+    def get_username_text(self):
+        return self.username.get_text()

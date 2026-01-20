@@ -21,7 +21,7 @@ class TestUploadImage:
         assert self.upload_image_page.is_image_loader_visible(), \
             "Ошибка при проверке видимости кнопки загрузки изображения"
         self.upload_image_page.clear_values_to_image_loader()
-        self.upload_image_page.upload_image(UploadImageTestData.IMAGE_PATH)
+        self.upload_image_page.upload_image(UploadImageTestData.IMAGE_NAME)
         self.upload_image_page.click_submit_button()
         assert self.upload_image_page.is_file_uploaded_successful_text_visible(), \
             "Ошибка при проверке видимости текста об успешной загрузки файла"
@@ -33,7 +33,7 @@ class TestUploadImage:
         self.upload_image_page.wait_for_open()
 
         self.upload_image_page.click_upload_image_area()
-        self.upload_image_page.upload_image_with_finder(UploadImageTestData.IMAGE_PATH)
+        self.upload_image_page.upload_image_with_finder(UploadImageTestData.IMAGE_NAME)
         assert self.upload_image_page.is_uploaded_file_name_in_uploaded_area_visible(), \
             "Ошибка при проверке видимости имени загруженного файла в поле загрузки файлов"
         assert self.upload_image_page.is_mark_text_visible(), \

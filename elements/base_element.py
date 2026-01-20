@@ -45,14 +45,6 @@ class BaseElement:
             Logger.error(f"{self}: {err}")
             raise
 
-    def wait_for_elements(self, expected_condition) -> List[WebElement]:
-        try:
-            Logger.info(f"{self} wait for {expected_condition.__name__}")
-            return self._wait.until(method=expected_condition(self.locator))
-        except TimeoutException as err:
-            Logger.error(f"{self}: {err}")
-            raise
-
     def wait_for_not(self, expected_condition) -> None:
         try:
             Logger.info(f"{self} wait for not {expected_condition.__name__}")
@@ -75,12 +67,13 @@ class BaseElement:
         return self.wait_for_not(expected_condition=expected_conditions.invisibility_of_element_located)
 
     def click(self):
-        Logger.info(f"Clicked element: {self}")
-        self.wait_for_clickable().click()
+        element = self.wait_for_clickable()
+        Logger.info(f"{self} is clicked")
+        element.click()
 
     def get_text(self):
-        text = self.wait_for(expected_condition=expected_conditions.visibility_of_element_located).text
-        Logger.info(f"Get text: {text}")
+        Logger.info(f"Get text: {self}")
+        text = self.wait_for_presence().text
         return text
 
     def get_attribute(self, name: str):
@@ -111,10 +104,10 @@ class BaseElement:
 
     def context_click(self):
         try:
-            Logger.info("Right click")
+            Logger.info(f"{self} is right clicked")
             self.actions.context_click().perform()
         except:
-            Logger.error("Failed to right click")
+            Logger.error(f"Failed to right click {self}")
             raise
 
     def open_context_menu(self):
@@ -138,23 +131,23 @@ class BaseElement:
             raise
 
     def js_click(self) -> None:
-        element = self.wait_for_visible()
+        element = self.wait_for_presence()
         Logger.info(f"{element} javascript clicked")
         self.browser.execute_script("arguments[0].click()", element)
 
     def get_text_with_js(self):
-        element = self.wait_for_visible()
+        element = self.wait_for_presence()
         Logger.info("Get text with js")
         return self.browser.execute_script("return arguments[0].innerText;", element)
 
-    def set_value_to_element(self, value):
+    def set_value_element(self, value):
         Logger.info(f"Set {value} to {self} ")
-        element = self.wait_for_visible()
+        element = self.wait_for_presence()
         self.browser.execute_script("arguments[0].value=arguments[1]", element, value)
 
     def dispatch_event_change(self):
         Logger.info("Dispatch Event change")
-        element = self.wait_for_visible()
+        element = self.wait_for_presence()
         self.browser.execute_script("arguments[0].dispatchEvent(new Event('change',{ bubbles: true }))", element)
 
     def wait_for_frame_and_switch(self):

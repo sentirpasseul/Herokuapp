@@ -15,9 +15,9 @@ class TestContextMenu:
         context_menu_page = ContextMenuPage(browser=browser)
         context_menu_page.wait_for_open()
         context_menu_page.open_context_menu_in_area()
-        actual_alert_text = context_menu_page.get_alert_text()
+        actual_alert_text = browser.get_alert_text()
         assert actual_alert_text == TestDataContextMenu.TEST_ALERT_TEXT, \
             ("Ошибка при проверке текста алерта \n"
              f"Actual: {actual_alert_text} \n"
              f"Expected: {TestDataContextMenu.TEST_ALERT_TEXT}")
-        context_menu_page.confirm_alert()
+        browser.confirm_alert()

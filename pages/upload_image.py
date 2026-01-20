@@ -5,6 +5,7 @@ from elements.custom_elements.label import Label
 from elements.custom_elements.input import Input
 from elements.custom_elements.web_element import WebElement
 from utils.pyautogui.pyautogui_utilities import PyAutoGuiUtilities
+from utils.path.path_utils import PathUtils
 
 
 class UploadImagePage(BasePage):
@@ -53,7 +54,8 @@ class UploadImagePage(BasePage):
     def click_upload_image_area(self) -> None:
         self.upload_image_area.click()
 
-    def upload_image(self, image_path) -> None:
+    def upload_image(self, image_name: str) -> None:
+        image_path = PathUtils.get_path(file_name=image_name)
         self.image_loader.send_keys(image_path)
 
     def is_image_loader_visible(self) -> bool:

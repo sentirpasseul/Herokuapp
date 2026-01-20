@@ -32,12 +32,6 @@ class AlertsPage(BasePage):
     def get_result_text(self):
         return self.result_text.get_text()
 
-    def confirm_alert(self):
-        self.browser.confirm_alert()
-
-    def get_alert_text(self):
-        return self.browser.get_alert_text()
-
     def click_alert_button(self) -> None:
         self.alert_button.click()
 

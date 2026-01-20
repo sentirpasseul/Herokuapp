@@ -12,8 +12,8 @@ class DynamicContentPage(BasePage):
         self.unique_element = Label(browser=browser, locator=self.UNIQUE_LOC,
                                     description="Dynamic Content Page -> Dynamic Content label")
         self.images = MultiWebElement(browser=self.browser,
-                                 locator=self.IMAGES_LOC,
-                                 description=f"Images")
+                                      locator=self.IMAGES_LOC,
+                                      description=f"Images")
 
     def get_all_src(self):
         images = self.images.wait_for_all_visible()
