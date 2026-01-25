@@ -14,13 +14,12 @@ class HoversPage(BasePage):
                                     locator=self.UNIQUE_LOC,
                                     description="Hovers Page -> Hovers label")
         self.user_card_collection = MultiWebElement(browser=browser,
-                                                    locator=UserCard.ANY_USER_CARD,
+                                                    formatable_xpath=UserCard.USER_CARD,
                                                     description="Hovers Page -> User Card web element")
 
     @property
     def cards(self):
-        user_card_elements = self.user_card_collection.wait_for_all_visible()
-        return [UserCard(self.browser, i + 1) for i in range(len(user_card_elements))]
+        return [UserCard(self.browser) for _ in self.user_card_collection]
 
     def hover_user_card(self, index: int) -> None:
         card = UserCard(self.browser, index)

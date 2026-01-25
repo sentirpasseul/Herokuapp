@@ -4,7 +4,7 @@ from elements.custom_elements.web_element import WebElement
 
 
 class NestedFramesPage(BasePage):
-    UNIQUE_LOC = "//div[@id='framesWrapper']//*[contains(text(), 'Nested Frames')]"
+    UNIQUE_LOC = "//*[@id='framesWrapper']//*[contains(text(), 'Nested Frames')]"
     IFRAME_PARENT_CONTAINER = "frame1"
     PARENT_FRAME_LABEL = "//*[contains(text(), 'Parent frame')]"
     IFRAME_CHILD_CONTAINER = "//*[contains(@srcdoc,'Child Iframe')]"
@@ -33,3 +33,9 @@ class NestedFramesPage(BasePage):
 
     def is_child_frame_text_exists(self):
         return self.child_frame_text.is_exists()
+
+    def switch_to_iframe(self) -> None:
+        self.iframe.wait_for_frame_and_switch()
+
+    def switch_to_iframe_child(self) -> None:
+        self.iframe_child.wait_for_frame_and_switch()

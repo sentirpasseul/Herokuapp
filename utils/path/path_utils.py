@@ -4,7 +4,7 @@ from utils.logs.logger import Logger
 
 class PathUtils:
     @staticmethod
-    def get_path(file_name: str):
+    def get_data_path(file_name: str):
         try:
             project_dir = Path.cwd()
             path = str(project_dir / 'data' / file_name)

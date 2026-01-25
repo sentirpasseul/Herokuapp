@@ -24,3 +24,5 @@ class TestDynamicContent:
                 break
 
             browser.refresh()
+        else:
+            raise AssertionError

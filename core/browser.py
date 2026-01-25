@@ -91,10 +91,10 @@ class Browser:
 
     def send_keys_alert(self, value: str):
         try:
-            Logger.info(f"Send {value} to alert was successful")
+            Logger.info(f"Send {value} to {self}")
             self._driver.switch_to.alert.send_keys(value)
         except:
-            Logger.error(f"Failed to send {value} to alert")
+            Logger.error(f"Failed to send {value} to {self}")
             raise
 
     def execute_script(self, script, *args):
@@ -106,7 +106,7 @@ class Browser:
             raise
 
     def switch_to_new_tab(self):
-        if not hasattr(self, 'original_window') or self.original_window is None:
+        if self.original_window is None:
             self.original_window = self._driver.current_window_handle
 
         try:
@@ -136,11 +136,6 @@ class Browser:
         except:
             Logger.error("Failed to get title current page")
             raise
-
-    @staticmethod
-    def switch_to_frame(frame: WebElement):
-        Logger.info(f"Switch to frame: {frame}")
-        frame.wait_for_frame_and_switch()
 
     def close_extra_tabs(self) -> None:
         try:

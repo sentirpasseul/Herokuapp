@@ -28,7 +28,6 @@ class UploadImagePage(BasePage):
         self.image_loader = Input(browser=self.browser,
                                   locator=self.INPUT_LOC,
                                   description="Upload Image Page -> Loader Image input")
-        self.pyautogui = PyAutoGuiUtilities()
         self.submit_button = WebElement(browser=self.browser,
                                         locator=self.BUTTON_LOC,
                                         description="Upload Image Page -> Loader Image Submit button")
@@ -55,7 +54,7 @@ class UploadImagePage(BasePage):
         self.upload_image_area.click()
 
     def upload_image(self, image_name: str) -> None:
-        image_path = PathUtils.get_path(file_name=image_name)
+        image_path = PathUtils.get_data_path(file_name=image_name)
         self.image_loader.send_keys(image_path)
 
     def is_image_loader_visible(self) -> bool:
@@ -69,9 +68,6 @@ class UploadImagePage(BasePage):
 
     def is_uploaded_file_name_visible(self) -> bool:
         return self.uploaded_file_name.is_exists()
-
-    def upload_image_with_finder(self, image_path) -> None:
-        self.pyautogui.upload_file(image_path)
 
     def is_uploaded_file_name_in_uploaded_area_visible(self) -> bool:
         return self.uploaded_image_name_in_uploaded_area.is_exists()

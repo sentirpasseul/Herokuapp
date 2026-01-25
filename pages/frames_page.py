@@ -7,9 +7,10 @@ from elements.custom_elements.web_element import WebElement
 
 class FramePage(BasePage):
     UNIQUE_LOC = "//*[@id='framesWrapper']//*[contains(text(), 'Frames')]"
-    MENU_ELEMENT_ITEM = ("//div[contains(@class,'element-list') and contains(@class, 'collapse show')]"
+    MENU_ELEMENT_ITEM = ("//div[contains(@class,'element-list') and contains(@class, 'collapse') and "
+                         "contains(@class, 'show')]"
                          "//*[contains(text(), 'Browser Windows')]")
-    MENU = "//*[text()='Browser Windows']/ancestor::div[@class='element-group']//span[@class='group-header']"
+    MENU = "//*[contains(text(),'Browser Windows')]/ancestor::div[contains(@class,'element-group')]//span[contains(@class,'group-header')]"
     MENU_ITEM = "//div[contains(@class,'element-group')]//*[contains(text(), 'Nested Frames')]"
 
     def __init__(self, browser):
@@ -42,3 +43,4 @@ class FramePage(BasePage):
 
     def is_child_frame_text_visible(self) -> bool:
         return self.nested_frames_page.is_child_frame_text_exists()
+

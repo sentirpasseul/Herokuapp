@@ -68,18 +68,18 @@ class BaseElement:
 
     def click(self):
         element = self.wait_for_clickable()
-        Logger.info(f"{self} is clicked")
+        Logger.info(f"{self} click")
         element.click()
 
     def get_text(self):
-        Logger.info(f"Get text: {self}")
-        text = self.wait_for_presence().text
-        return text
+        element = self.wait_for_presence()
+        Logger.info(f"Get text: {element}")
+        return element.text
 
     def get_attribute(self, name: str):
-        attribute = self.wait_for_presence().get_attribute(name)
-        Logger.info(f"Get attribute: {attribute}")
-        return attribute
+        element = self.wait_for_presence()
+        Logger.info(f"Get {self.locator} attribute by {name}")
+        return element.get_attribute(name)
 
     def is_enabled(self):
         Logger.info(f"{self} is enabled")
@@ -104,8 +104,9 @@ class BaseElement:
 
     def context_click(self):
         try:
+            element = self.wait_for_visible()
             Logger.info(f"{self} is right clicked")
-            self.actions.context_click().perform()
+            self.actions.context_click(element).perform()
         except:
             Logger.error(f"Failed to right click {self}")
             raise
@@ -123,9 +124,9 @@ class BaseElement:
     def scroll_to_element(self, block='center', behavior='smooth'):
         try:
             element = self.wait_for_visible()
+            Logger.info(f"Scroll to {element}: (block={block}, behavior={behavior}")
             self.browser.driver.execute_script(
                 f"arguments[0].scrollIntoView({{block: '{block}', behavior: '{behavior}'}})", element)
-            Logger.info(f"Скролл к элементу (block={block}, behavior={behavior}")
         except:
             Logger.error(f"Ошибка при скролле элемента")
             raise
@@ -152,8 +153,8 @@ class BaseElement:
 
     def wait_for_frame_and_switch(self):
         try:
+            Logger.info(f"Switch to frame: {self}")
             self.wait_for(expected_condition=expected_conditions.frame_to_be_available_and_switch_to_it)
-            Logger.info(f"Get frame {self}")
         except:
             Logger.error(f"{self} not available to switch")
             raise
