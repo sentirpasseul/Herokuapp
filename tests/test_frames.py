@@ -8,7 +8,7 @@ class TestFrames:
         frames_page = FramePage(browser)
 
         frames_page.wait_for_open()
-        if not frames_page.is_menu_visible():
+        if not frames_page.is_menu_exists():
             frames_page.click_menu()
 
         frames_page.click_menu_item()

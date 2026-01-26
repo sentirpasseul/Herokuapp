@@ -4,7 +4,8 @@ import time
 
 
 class PyAutoGuiUtilities:
-    TIMEOUT = 2
+    TIMEOUT = 3
+    DEFAULT_INTERVAL = 0.1
 
     @staticmethod
     def upload_file(file_path: str) -> None:
@@ -12,7 +13,7 @@ class PyAutoGuiUtilities:
         time.sleep(PyAutoGuiUtilities.TIMEOUT)
 
         Logger.debug(f"Write '{file_path}' to search File Dialog field")
-        pyautogui.hotkey('command', 'shift', 'g')
+        pyautogui.hotkey('command', 'shift', 'g', interval=PyAutoGuiUtilities.DEFAULT_INTERVAL)
         time.sleep(PyAutoGuiUtilities.TIMEOUT)
 
         pyautogui.write(file_path)

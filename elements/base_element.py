@@ -143,7 +143,7 @@ class BaseElement:
 
     def set_value_element(self, value):
         Logger.info(f"Set {value} to {self} ")
-        element = self.wait_for_presence()
+        element = self.wait_for_visible()
         self.browser.execute_script("arguments[0].value=arguments[1]", element, value)
 
     def dispatch_event_change(self):

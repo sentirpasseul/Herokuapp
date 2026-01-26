@@ -23,8 +23,7 @@ class TestUploadImage:
         assert self.upload_image_page.is_image_loader_visible(), \
             "Ошибка при проверке видимости кнопки загрузки изображения"
         self.upload_image_page.clear_values_to_image_loader()
-        image_path = PathUtils.get_data_path(UploadImageTestData.IMAGE_NAME)
-        self.upload_image_page.upload_image(image_path)
+        self.upload_image_page.upload_image(UploadImageTestData.IMAGE_NAME)
         self.upload_image_page.click_submit_button()
         assert self.upload_image_page.is_file_uploaded_successful_text_visible(), \
             "Ошибка при проверке видимости текста об успешной загрузки файла"

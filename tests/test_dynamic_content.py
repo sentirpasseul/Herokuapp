@@ -1,6 +1,7 @@
 from pages.dynamic_content_page import DynamicContentPage
 from config.urls import URLs
 from data.dynamic_content_data import DynamicContentData
+from utils.logs.logger import Logger
 
 
 class TestDynamicContent:
@@ -25,4 +26,4 @@ class TestDynamicContent:
 
             browser.refresh()
         else:
-            raise AssertionError
+            raise AssertionError(f"Failed to check dynamic content: {DynamicContentData.MAX_ATTEMPTS} attempts were exceeded")
