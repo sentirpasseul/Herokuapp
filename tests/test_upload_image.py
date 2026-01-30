@@ -2,8 +2,8 @@ from pages.upload_image import UploadImagePage
 from config.urls import URLs
 from data.upload_image_data import UploadImageTestData
 import pytest
-from utils.pyautogui.pyautogui_utilities import PyAutoGuiUtilities
-from utils.path.path_utils import PathUtils
+# from utils.pyautogui.pyautogui_utilities import PyAutoGuiUtilities
+# from utils.path.path_utils import PathUtils
 
 
 @pytest.fixture

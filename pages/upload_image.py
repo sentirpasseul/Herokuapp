@@ -4,7 +4,6 @@ from pages.base_page import BasePage
 from elements.custom_elements.label import Label
 from elements.custom_elements.input import Input
 from elements.custom_elements.web_element import WebElement
-from utils.pyautogui.pyautogui_utilities import PyAutoGuiUtilities
 from utils.path.path_utils import PathUtils
 
 
