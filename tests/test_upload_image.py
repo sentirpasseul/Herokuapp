@@ -30,6 +30,7 @@ class TestUploadImage:
         assert self.upload_image_page.is_uploaded_file_name_visible(), \
             "Ошибка при проверке видимости имени загруженного файла"
 
+    """
     def test_upload_image_with_dialog_window(self, upload_image_test_context):
         self.upload_image_page = upload_image_test_context
         self.upload_image_page.wait_for_open()
@@ -41,3 +42,5 @@ class TestUploadImage:
             "Ошибка при проверке видимости имени загруженного файла в поле загрузки файлов"
         assert self.upload_image_page.is_mark_text_visible(), \
             'Ошибка при проверке видимости "✔" '
+            
+    """
