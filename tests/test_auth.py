@@ -1,8 +1,10 @@
 from pages.auth_page import AuthPage
 from config.urls import URLs
 from data.auth_data import TestDataAuth
+from utils.markers.markers import critical
 
 
+@critical
 class TestAuth:
 
     def test_auth(self, browser):

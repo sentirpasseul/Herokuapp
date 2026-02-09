@@ -1,8 +1,13 @@
 import random
+
+import pytest
+
 from config.urls import URLs
 from pages.horizontal_slider_page import HorizontalSliderPage
+from utils.markers.markers import critical
 
 
+@critical
 class TestHorizontalSlider:
 
     @staticmethod

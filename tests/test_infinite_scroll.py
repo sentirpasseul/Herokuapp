@@ -1,8 +1,10 @@
 from pages.infinite_scroll_page import InfiniteScrollPage
 from config.urls import URLs
 from data.infinite_scroll_data import InfiniteScrollData
+from utils.markers.markers import critical
 
 
+@critical
 class TestInfiniteScroll:
 
     def test_infinite_scroll(self, browser):

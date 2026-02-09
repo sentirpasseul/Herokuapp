@@ -8,6 +8,15 @@ on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
+    inputs:
+      test_type:
+        description: "What autotests to launch?"
+        required: true
+        default: 'critical'
+        type: choice
+        options:
+          - critical
+          - all
 
 jobs:
   test:
@@ -31,7 +40,11 @@ jobs:
           sudo apt-get install -y google-chrome-stable
 
       - name: Run Tests
-        run: pytest tests/ --html=report.html
+        run: |
+          if [ "${{ github.event.inputs.test_type }}" == "all" ]; then pytest
+          else
+            pytest -m critical --html=report.html
+          fi
 
       - name: Upload Report
         if: always()

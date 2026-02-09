@@ -1,9 +1,13 @@
+import pytest
+
 from pages.dynamic_content_page import DynamicContentPage
 from config.urls import URLs
 from data.dynamic_content_data import DynamicContentData
 from utils.logs.logger import Logger
+from utils.markers.markers import critical
 
 
+@critical
 class TestDynamicContent:
     def test_dynamic_content_page(self, browser):
         browser.get(URLs.DYNAMIC_CONTENT_PAGE)

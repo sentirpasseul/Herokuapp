@@ -2,6 +2,8 @@ from pages.alerts_page import AlertsPage
 from data.alerts_data import TestAlertsData
 from config.urls import URLs
 import pytest
+
+from utils.markers.markers import critical
 from utils.random.random_factory import RandomFactory
 
 
@@ -12,7 +14,7 @@ def alerts_test_context(browser):
     alerts_page.wait_for_open()
     yield alerts_page
 
-
+@critical
 class TestAlerts:
 
     def test_alert_manual(self, browser, alerts_test_context):

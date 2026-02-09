@@ -1,11 +1,11 @@
-import pytest
-
 from pages.new_window_page import NewWindowPage
 from pages.windows_page import WindowsPage
 from config.urls import URLs
 from data.windows_data import TestWindowsData
+from utils.markers.markers import critical
 
 
+@critical
 class TestWindows:
 
     def test_windows_page(self, browser):
