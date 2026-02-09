@@ -1,5 +1,5 @@
 from enum import StrEnum
 
 
-class TestWindowsData(StrEnum):
+class WindowsData(StrEnum):
     TITLE_NEW_PAGE = "New Window"

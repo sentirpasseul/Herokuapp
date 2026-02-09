@@ -1,4 +1,4 @@
-class TestAlertsData:
+class AlertsData:
     ALERT_TEXT = "I am a JS Alert"
     ALERT_RESULT_TEXT = "You successfully clicked an alert"
 

@@ -1,3 +1,4 @@
+import os
 from enum import StrEnum
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -17,16 +18,23 @@ class BrowserFactory:
         if options is None:
             options = []
 
-        Logger.info(f"Start webdriver: {driver_name} with options '{options}'")
+        print(f"DEBUG: All env vars: {dict(os.environ)}")
+        remote_url = os.getenv("SELENIUM_REMOTE_URL")
+
+        Logger.info(f"Start webdriver: {driver_name} | Remote: {bool(remote_url)} | Options: '{options}'")
         if driver_name == AvailableDriverName.CHROME:
             chrome_options = webdriver.ChromeOptions()
 
             for option in options:
                 chrome_options.add_argument(option)
 
-            driver = webdriver.Chrome(options=chrome_options)
+            if remote_url:
+                return webdriver.Remote(
+                    command_executor=remote_url,
+                    options=chrome_options
+                )
+
+            return webdriver.Chrome(options=chrome_options)
 
         else:
             raise NotImplementedError(f"{driver_name} not implemented.")
-
-        return driver

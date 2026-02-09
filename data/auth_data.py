@@ -1,6 +1,6 @@
 from enum import StrEnum
 
 
-class TestDataAuth(StrEnum):
+class DataAuth(StrEnum):
     USER = "admin"
     PASSWORD = "admin"

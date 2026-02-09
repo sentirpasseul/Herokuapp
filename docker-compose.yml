@@ -1,0 +1,22 @@
+services:
+  chrome:
+    image: seleniarm/standalone-chromium:latest
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    shm_size: 2gb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4444/wd/hub/status"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  tests:
+    build: .
+    depends_on:
+      chrome:
+        condition: service_healthy
+    environment:
+      - SELENIUM_REMOTE_URL=http://chrome:4444/wd/hub
+    volumes:
+      - .:/app

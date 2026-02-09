@@ -1,7 +1,7 @@
 from pages.new_window_page import NewWindowPage
 from pages.windows_page import WindowsPage
 from config.urls import URLs
-from data.windows_data import TestWindowsData
+from data.windows_data import WindowsData
 from utils.markers.markers import critical
 
 
@@ -20,7 +20,7 @@ class TestWindows:
 
         new_window_page.wait_for_open()
         actual_window_title = browser.get_title()
-        assert actual_window_title == TestWindowsData.TITLE_NEW_PAGE, \
+        assert actual_window_title == WindowsData.TITLE_NEW_PAGE, \
             ("Ошибка при проверке имени новой вкладки \n"
              f"Actual: {actual_window_title}\n"
-             f"Expected: {TestWindowsData.TITLE_NEW_PAGE}")
+             f"Expected: {WindowsData.TITLE_NEW_PAGE}")
