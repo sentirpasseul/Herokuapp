@@ -1,6 +1,8 @@
 services:
   chrome:
     image: seleniarm/standalone-chromium
+    container_name: chrome
+    hostname: chrome
     ports:
       - "4444:4444"
       - "7900:7900"
@@ -20,5 +22,8 @@ services:
       - SELENIUM_REMOTE_URL=http://chrome:4444/wd/hub
     volumes:
       - ./logs:/app/logs
-    command:
-      - sh -c "mkdir -p logs && pytest --resultlog=logs/test_results.log"
+    entrypoint: ["sh", "-c", "mkdir -p logs && pytest"]
+
+networks:
+  app-network:
+    driver: bridge
