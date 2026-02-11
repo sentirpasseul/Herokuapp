@@ -1,12 +1,8 @@
-import pytest
-
 from conftest import browser
 from pages.hovers_page import HoversPage
 from config.urls import URLs
-from utils.markers.markers import critical
 
 
-@critical
 class TestHovers:
     def test_hovers_page(self, browser):
         browser.get(URLs.HOVERS_PAGE)

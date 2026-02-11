@@ -1,13 +1,8 @@
-import pytest
-
 from pages.dynamic_content_page import DynamicContentPage
 from config.urls import URLs
 from data.dynamic_content_data import DynamicContentData
-from utils.logs.logger import Logger
-from utils.markers.markers import critical
 
 
-@critical
 class TestDynamicContent:
     def test_dynamic_content_page(self, browser):
         browser.get(URLs.DYNAMIC_CONTENT_PAGE)
@@ -30,4 +25,5 @@ class TestDynamicContent:
 
             browser.refresh()
         else:
-            raise AssertionError(f"Failed to check dynamic content: {DynamicContentData.MAX_ATTEMPTS} attempts were exceeded")
+            raise AssertionError(
+                f"Failed to check dynamic content: {DynamicContentData.MAX_ATTEMPTS} attempts were exceeded")

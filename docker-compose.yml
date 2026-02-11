@@ -1,6 +1,6 @@
 services:
   chrome:
-    image: seleniarm/standalone-chromium:latest
+    image: seleniarm/standalone-chromium
     ports:
       - "4444:4444"
       - "7900:7900"
@@ -20,3 +20,6 @@ services:
       - SELENIUM_REMOTE_URL=http://chrome:4444/wd/hub
     volumes:
       - .:/app
+      - ./logs:/app/logs
+    command:
+      - sh -c "mkdir -p logs && pytest --resultlog=logs/test_results.log"

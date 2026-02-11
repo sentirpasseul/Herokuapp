@@ -1,17 +1,12 @@
 from enum import StrEnum
-
-import pytest
-
 from config.urls import URLs
-
 from pages.context_menu_page import ContextMenuPage
-from utils.markers.markers import critical
 
 
 class DataContextMenu(StrEnum):
     TEST_ALERT_TEXT = "You selected a context menu"
 
-@critical
+
 class TestContextMenu:
 
     def test_context_menu(self, browser):

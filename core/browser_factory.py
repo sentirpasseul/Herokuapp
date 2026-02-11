@@ -34,7 +34,7 @@ class BrowserFactory:
                     options=chrome_options
                 )
 
-            return webdriver.Chrome(options=chrome_options)
+            return webdriver.Remote(options=chrome_options)
 
         else:
             raise NotImplementedError(f"{driver_name} not implemented.")
