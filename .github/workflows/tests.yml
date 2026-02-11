@@ -41,10 +41,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          if [ "${{ github.event.inputs.test_type }}" == "all" ]; then pytest
-          else
-            pytest -m critical --html=report.html
-          fi
+            pytest --html=report.html
 
       - name: Upload Report
         if: always()
