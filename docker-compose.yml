@@ -19,7 +19,6 @@ services:
     environment:
       - SELENIUM_REMOTE_URL=http://chrome:4444/wd/hub
     volumes:
-      - .:/app
       - ./logs:/app/logs
     command:
       - sh -c "mkdir -p logs && pytest --resultlog=logs/test_results.log"
