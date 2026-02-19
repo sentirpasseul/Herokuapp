@@ -121,12 +121,13 @@ class BaseElement:
             Logger.error("Failed to open context menu")
             raise
 
-    def scroll_to_element(self, block='center', behavior='smooth'):
+    def scroll_to_element(self, block='center', behavior='instant'):
         try:
             element = self.wait_for_visible()
             Logger.info(f"Scroll to {element}: (block={block}, behavior={behavior}")
             self.browser.driver.execute_script(
                 f"arguments[0].scrollIntoView({{block: '{block}', behavior: '{behavior}'}})", element)
+            self.browser.execute_script("window.dispatchEvent(new Event('scroll'));", element)
         except:
             Logger.error(f"Ошибка при скролле элемента")
             raise

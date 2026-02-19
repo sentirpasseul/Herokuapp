@@ -55,7 +55,3 @@ def __getitem__(self, index: int) -> WebElement:
         description=f"{self.description}[{xpath_index}]",
         timeout=self.timeout
     )
-
-
-def get_count(self):
-    elements = WebElement(browser=self.browser)

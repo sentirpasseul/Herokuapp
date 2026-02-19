@@ -1,3 +1,5 @@
+import platform
+
 from pages.upload_image import UploadImagePage
 from config.urls import URLs
 from data.upload_image_data import UploadImageTestData
@@ -30,7 +32,10 @@ class TestUploadImage:
         assert self.upload_image_page.is_uploaded_file_name_visible(), \
             "Ошибка при проверке видимости имени загруженного файла"
 
-    @pytest.mark.skip
+    @pytest.mark.skipif(
+        platform.system() != 'Darwin',
+        reason="This test only works on macOS System"
+    )
     def test_upload_image_with_dialog_window(self, upload_image_test_context):
         from utils.pyautogui.pyautogui_utilities import PyAutoGuiUtilities
         self.upload_image_page = upload_image_test_context

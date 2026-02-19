@@ -9,6 +9,8 @@ from selenium.webdriver import ActionChains
 class Browser:
     DEFAULT_TIMEOUT = 10
     PAGE_LOAD_TIMEOUT = 20
+    DEFAULT_WIDTH_SIZE = 1920
+    DEFAULT_HEIGHT_SIZE = 1080
 
     def __init__(self, driver: WebDriver):
         self._driver = driver
@@ -147,4 +149,15 @@ class Browser:
             self.switch_to_original_window()
         except:
             Logger.error("Failed to close extra tabs")
+            raise
+
+    def set_window_size(self,
+                        width: int = DEFAULT_WIDTH_SIZE,
+                        height: int = DEFAULT_HEIGHT_SIZE
+                        ) -> None:
+        try:
+            Logger.info(f"Set window size: width={width}, height={height}")
+            self.driver.set_window_size(width=width, height=height)
+        except Exception as error:
+            Logger.error(f"Failed to set window size: {error}")
             raise

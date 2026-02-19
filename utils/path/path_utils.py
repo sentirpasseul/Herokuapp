@@ -1,5 +1,4 @@
 from pathlib import Path
-from utils.logs.logger import Logger
 
 
 class PathUtils:

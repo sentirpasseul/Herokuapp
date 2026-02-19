@@ -1,3 +1,7 @@
+import platform
+
+import pytest
+
 from conftest import browser
 from pages.hovers_page import HoversPage
 from config.urls import URLs
